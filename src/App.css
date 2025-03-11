@@ -1,0 +1,279 @@
+/* #root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+ */
+
+/* Generali -------------------------------------🟩🟩🟩---------------------------------------------- */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Orbitron", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  overflow-x: hidden; /* Impedisce lo scrolling orizzontale */
+}
+
+/* Gestione BackGround */
+body {
+  background-image: url("/sfondo.svg"); /* Percorso dell'immagine */
+  background-size: cover; /* Adatta l'immagine alla pagina */
+  background-attachment: fixed;
+  background-position: center;
+}
+
+/* ----------------------------------------------🟩🟩🟩------------------------------------------ */
+
+/* NAV BAR --------------------------------------🟧🟧🟧------------------------------------------- */
+
+nav .customDropdown .dropdown-menu {
+  position: absolute;
+  right: 0;
+  left: auto;
+}
+
+.my-navbar-brand {
+  font-weight: 500;
+}
+
+.nav-text-personalized {
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+/* -----------------------------------------------🟧🟧🟧-------------------------------------------- */
+
+/* SEARCH BAR-------------------------------------🟪🟪🟪-------------------------------------------- */
+
+.search-personalized::placeholder {
+  font-size: 0.9rem;
+}
+
+input.search-personalized:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(210, 210, 210, 0.5);
+  border-color: #e0dfdf;
+}
+
+button.searchBtn {
+  background-color: #f8f9fa;
+  border-color: #e0dfdf;
+}
+
+button.searchBtn:hover {
+  background-color: #e3e3e3;
+  border-color: #e0dfdf;
+}
+/* ------------------------------------------------🟪🟪🟪----------------------------------------- */
+
+/* EVENTI IN EVIDENZA------------------------------🟨🟨🟨----------------------------------------- */
+/* ------------------------------------------------🟨🟨🟨----------------------------------------- */
+
+/* CHOOSE CAPS-------------------------------------🟦🟦🟦----------------------------------------- */
+.titoli-sezioni {
+  font-size: 0.9rem;
+}
+
+.header-pers {
+  font-size: 0.85rem;
+}
+
+.card-home {
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Effetto di transizione */
+  overflow: hidden;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.303);
+  border-radius: 10px;
+}
+
+.card-home:hover {
+  background-color: #e5e5e5;
+  cursor: pointer;
+  transform: scale(1.02); /* Ingrandisce del 2% */
+}
+/* ------------------------------------------------🟦🟦🟦----------------------------------------- */
+
+/* CREATE CAPS ------------------------------------🟨🟨🟨----------------------------------------- */
+.form-capsula-div {
+  margin: -10px;
+  padding: 10px;
+  background-color: #ffffffa3;
+  box-shadow: 0px 1px 3px rgb(83, 111, 133);
+  border-radius: 10px;
+}
+
+.form-capsula-div h4 {
+  font-size: 1.2rem;
+  color: #41596b;
+}
+
+.form-capsula-div ul {
+  list-style-type: none;
+  margin-bottom: 0.6rem;
+}
+
+.form-capsula-div ul li {
+  font-size: 0.8rem;
+  margin-bottom: 0.6rem;
+}
+
+.form-text label {
+  font-size: 0.9rem;
+}
+.form-text input {
+  font-size: 0.8rem;
+}
+
+.form-text input:focus {
+  box-shadow: 0 0 5px rgba(83, 111, 133, 0.502);
+  border-color: #e0dfdf;
+}
+
+.form-text input::placeholder {
+  font-size: 0.8rem;
+}
+
+.form-text textarea::placeholder {
+  font-size: 0.8rem;
+}
+
+.form-text textarea:focus {
+  box-shadow: 0 0 5px rgba(83, 111, 133, 0.502);
+  border-color: #e0dfdf;
+}
+
+.form-text textarea {
+  font-size: 0.8rem;
+}
+
+.form-text input[type="date"] {
+  font-size: 0.8rem;
+}
+
+.form-text input[type="date"]:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(83, 111, 133, 0.5);
+  border-color: #e0dfdf;
+}
+
+.form-text input[type="file"] {
+  font-size: 0.8rem;
+  display: none; /* nascondiamo il campo input e lo mascheriamo con un bottone */
+}
+
+.form-text input[type="file"]:focus {
+  /* ora che è nascosto in teoria non serve più */
+  outline: none;
+  box-shadow: 0 0 5px rgba(83, 111, 133, 0.5);
+  border-color: #e0dfdf;
+}
+
+.disclaimer {
+  font-size: 0.6rem;
+}
+
+.bottone-file {
+  font-size: 0.8rem;
+  background-color: #e0dfdf;
+  color: rgb(44, 44, 44);
+  border: #41596b;
+  box-shadow: 0 0px 2px rgb(53, 53, 53);
+  padding: 0.3rem;
+  display: block;
+}
+.bottone-file:hover {
+  background-color: #41596b51;
+  color: rgb(44, 44, 44);
+}
+
+.bottone-crea {
+  background: radial-gradient(
+    circle,
+    rgb(168, 168, 168) 0%,
+    rgba(83, 111, 133, 1) 70%
+  );
+  border: #e0dfdf;
+  box-shadow: 0 1px 5px rgb(53, 53, 53);
+  transition: all 0.7s ease; /* transizione per effetto morbido */
+}
+
+.bottone-crea:hover {
+  background: radial-gradient(
+    circle,
+    rgba(83, 111, 133, 1) 20%,
+    /* Colore interno prima */ rgb(168, 168, 168) 100% /* Colore esterno dopo */
+  );
+  box-shadow: 0 3px 8px rgb(53, 53, 53); /* Aumenta l'ombra durante l'hover */
+}
+
+#custom-switch {
+  color: #e0dfdf;
+  border-color: #a2a1a1;
+}
+
+#custom-switch:checked {
+  background-color: #5188b1e6;
+  color: #e0dfdf;
+  border-color: #a2a1a1;
+}
+
+#custom-switch:focus {
+  outline: none;
+  border-color: #e0dfdf;
+  box-shadow: 0 0 5px rgba(83, 111, 133, 0.5);
+}
+
+label[for="custom-switch"] {
+  font-size: 0.8rem;
+  color: #2b2b2b;
+}
+
+.cancel-btn {
+  border-radius: 50%;
+}
+/* ------------------------------------------------🟨🟨🟨----------------------------------------- */
+
+/* Login/Registrazione-----------------------------🟨🟨🟨----------------------------------------- */
+.go-register {
+  font-size: 0.7rem;
+}
+/* ------------------------------------------------🟨🟨🟨----------------------------------------- */
