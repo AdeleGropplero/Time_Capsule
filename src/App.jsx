@@ -15,15 +15,15 @@ import api from "./api/api"; // Importa Axios configurato
 import LeMieCaps from "./components/LeMieCaps.jsx";
 
 function App() {
+  const token = localStorage.getItem("token");
+  const user = JSON.parse(localStorage.getItem("user"));
   const dispatch = useDispatch();
   //Dentro l'app verifico la validità del token con una get apposita.
   //La protected route mi garantisce che in ogni rotta protetta ci sia una un controllo sul token.
   useEffect(() => {
     const checkTokenValidity = () => {
-      const token = localStorage.getItem("token");
-      const user = JSON.parse(localStorage.getItem("user"));
-
       if (!token || !user) {
+        console.warn("Token o user mancante, eseguo logout");
         dispatch(logout());
         return;
       }
@@ -32,7 +32,7 @@ function App() {
         .get("/token-validation")
         .then((res) => {
           /* In Axios, la proprietà response.status è utilizzata per ottenere il codice di stato HTTP della risposta, mentre res.ok è una proprietà di Response in Fetch API, un'altra libreria per fare richieste HTTP */
-
+          console.log("Validazione riuscita:", res.status);
           if (res.status === 200) {
             dispatch(setUser(user));
             // Il token è già gestito dall'interceptor, quindi non è necessario dispatchare setToken qui
@@ -47,7 +47,7 @@ function App() {
     };
 
     checkTokenValidity();
-  }, [dispatch]);
+  }, [dispatch, token, user]);
 
   return (
     <BrowserRouter>
@@ -70,8 +70,9 @@ function App() {
             </ProtectedRoute>
           }
         />
+
         <Route
-          path="/le-mie-caps"
+          path={`/le-mie-caps/:id`}
           element={
             <ProtectedRoute>
               <LeMieCaps />

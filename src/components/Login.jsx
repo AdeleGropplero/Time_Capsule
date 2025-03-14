@@ -38,6 +38,7 @@ function Login() {
         console.log("Dati ricevuti dal backend:", data);
 
         if (data && data.token) {
+          console.log("token: " + data.token);
           dispatch(setToken(data.token));
 
           // Mi ssicuro che data contenga fullName e id prima di usarli

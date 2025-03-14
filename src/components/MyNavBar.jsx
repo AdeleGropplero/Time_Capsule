@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../redux/reducers/authSlice"; // Importo le azioni del mio slice
 
 function MyNavBar() {
+  const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // Aggiungo uno stato per tenere traccia se il dropdown è chiuso o aperto.
@@ -67,7 +68,7 @@ function MyNavBar() {
 
             <NavDropdown.Item
               as={Link} // Usa Link per la navigazione
-              to="/le-mie-caps"
+              to={`/le-mie-caps/${user?.id}`}
               className="nav-text-personalized"
             >
               <img
@@ -80,7 +81,6 @@ function MyNavBar() {
             </NavDropdown.Item>
 
             <NavDropdown.Item
-              href="#action/3.2"
               className="nav-text-personalized"
               onClick={() => {
                 dispatch(logout());

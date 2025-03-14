@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 
 function MyHome() {
   const navigate = useNavigate(); // Aggiungi il navigate hook
-  const token = useSelector((state) => state.auth.token); // Recupero il token da Redux con Selector
+  const token = localStorage.getItem("token");
   useEffect(() => {
     if (!token) {
       navigate("/"); // Se il token manca, manda l'utente al login
