@@ -11,7 +11,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { logout, setUser } from "./redux/reducers/authSlice.js";
-import api from "./api/api"; // Importa Axios configurato
+import api from "./api/api"; // Importa Axios configuratoimport api from
+import Capsula from "./components/c_CapPersonale/Capsula.jsx";
 import LeMieCaps from "./components/LeMieCaps.jsx";
 
 function App() {
@@ -76,6 +77,15 @@ function App() {
           element={
             <ProtectedRoute>
               <LeMieCaps />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/capsula/:id"
+          element={
+            <ProtectedRoute>
+              <Capsula />
             </ProtectedRoute>
           }
         />

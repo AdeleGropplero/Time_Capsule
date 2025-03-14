@@ -2,8 +2,10 @@ import { Card, Col, Container, Row } from "react-bootstrap";
 import MyNavBar from "./MyNavBar";
 import api from "../api/api"; // Importo Axios configurato
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function LeMieCaps() {
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
   const [capsule, setCapsule] = useState([]);
   const [randomN, setRandomN] = useState(3);
@@ -32,9 +34,13 @@ function LeMieCaps() {
   const generateCard = (nomeLista) => {
     return nomeLista.length > 0 ? (
       <Row>
-        {nomeLista.map((cap, index) => (
-          <Col key={index} xs={6} sm={3} md={4}>
-            <Card>
+        {nomeLista.map((cap) => (
+          <Col key={cap.id} xs={6} sm={3} md={4}>
+            <Card
+              onClick={() => {
+                navigate(`/capsula/${cap.id}`);
+              }}
+            >
               <Card.Body>
                 <img
                   src={`/immagini_caps/capsula_${randomN}.jpeg`} //{"/immagini_caps/capsula_" + randomN + ".jpeg"}
