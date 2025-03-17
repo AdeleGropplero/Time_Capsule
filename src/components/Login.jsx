@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Form, Button, Container, Spinner } from "react-bootstrap";
+import { Form, Button, Container, Spinner, InputGroup } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { setToken, setUser } from "../redux/reducers/authSlice"; // Importo le azioni del mio slice
 import api from "../api/api"; // Importo Axios configurato
@@ -16,6 +16,7 @@ function Login() {
   });
 
   const [isLoading, setIsLoading] = useState(false); // Stato per gestire il caricamento
+  const [showPassword, setShowPassword] = useState(false); // Stato per mostrare/nascondere la password
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -96,18 +97,30 @@ function Login() {
             {/* Password */}
             <Form.Group className="mb-3 form-text">
               <Form.Label>Inserisci la password</Form.Label>
-              <Form.Control
-                type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="************"
-                required
-                minLength={8} // Imposta il minimo di 8 caratteri
-                isInvalid={
-                  formData.password.length > 0 && formData.password.length < 8
-                } // Condizione per mostrare errore
-              />
+              <InputGroup>
+                <Form.Control
+                  type={showPassword ? "text" : "password"} // Mostra/nascondi la password
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="************"
+                  required
+                  minLength={8} // Imposta il minimo di 8 caratteri
+                  isInvalid={
+                    formData.password.length > 0 && formData.password.length < 8
+                  } // Condizione per mostrare errore
+                />
+                <InputGroup.Text
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setShowPassword((prev) => !prev)}
+                >
+                  {showPassword ? (
+                    <img src="/iconeGenerali/e-ye.svg" alt="nascondi" />
+                  ) : (
+                    <img src="/iconeGenerali/eye.svg" alt="mostra" />
+                  )}
+                </InputGroup.Text>
+              </InputGroup>
               <Form.Control.Feedback type="invalid">
                 La password deve essere di almeno 8 caratteri.
               </Form.Control.Feedback>

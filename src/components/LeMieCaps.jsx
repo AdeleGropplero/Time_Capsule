@@ -8,11 +8,8 @@ function LeMieCaps() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
   const [capsule, setCapsule] = useState([]);
-  const [randomN, setRandomN] = useState(3);
 
   useEffect(() => {
-    setRandomN(Math.floor(Math.random() * 20) + 1);
-
     api
       .get(`/le-mie-caps/${user.id}`)
       .then((res) => {
@@ -43,7 +40,9 @@ function LeMieCaps() {
             >
               <Card.Body>
                 <img
-                  src={`/immagini_caps/capsula_${randomN}.jpeg`} //{"/immagini_caps/capsula_" + randomN + ".jpeg"}
+                  src={`/immagini_caps/capsula_${
+                    Math.floor(Math.random() * 20) + 1
+                  }.jpeg`} //{"/immagini_caps/capsula_" + randomN + ".jpeg"}
                   alt="img capsula"
                   className="img-fluid mb-2"
                 />
