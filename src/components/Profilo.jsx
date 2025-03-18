@@ -1,4 +1,4 @@
-import { Card, Container } from "react-bootstrap";
+import { Button, Card, Container } from "react-bootstrap";
 import MyNavBar from "./MyNavBar";
 import { useEffect, useState } from "react";
 import api from "../api/api"; // Importo Axios configurato
@@ -48,7 +48,16 @@ function Profilo() {
               />
             </div>
             <div className=" mx-2">
-              <h6>{user.fullName}</h6>
+              <h6>
+                {datiProfilo.fullName}{" "}
+                <Button className="py-0 px-1 bottone-crea">
+                  <img
+                    className="pb-1"
+                    src="/iconeGenerali/pencil.svg"
+                    alt="modifica"
+                  />
+                </Button>
+              </h6>
               <p>Mail: {datiProfilo.email}</p>
               <p>Time traveller dal: {datiProfilo.dataRegistrazione}</p>
             </div>
