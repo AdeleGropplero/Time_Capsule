@@ -54,7 +54,8 @@ function MyNavBar() {
             onToggle={handleToggle} //richiamo la f. definita prima.
           >
             <NavDropdown.Item
-              href="#action/3.1"
+              as={Link} // Usa Link per la navigazione
+              to={`/profilo/${user?.id}`}
               className="nav-text-personalized"
             >
               <img

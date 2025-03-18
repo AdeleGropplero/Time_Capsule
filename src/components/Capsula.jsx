@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "../../api/api"; // Importa Axios configurato
+import api from "../api/api"; // Importa Axios configurato
 import { useNavigate, useParams } from "react-router-dom";
 import {
   Card,
@@ -10,7 +10,7 @@ import {
   Form,
   Spinner
 } from "react-bootstrap";
-import MyNavBar from "../MyNavBar";
+import MyNavBar from "./MyNavBar";
 
 function Capsula() {
   const { id } = useParams();
@@ -85,7 +85,7 @@ function Capsula() {
   const capsulaAperta = capsula.openDate <= oggi;
 
   // Funzione per gestire il caricamento dei file
-  const handleFileUpload = (e, fileType) => {
+  const handleFileUpload = (e) => {
     const selectedFiles = Array.from(e.target.files).map((file) => ({
       id: crypto.randomUUID(), // Genera un ID univoco per ogni file. ATTENZIONE non ha nulla a che vedere con il db. è solo un id temporaneo.
       name: file.name, // Nome originale del file
@@ -175,7 +175,7 @@ function Capsula() {
     <>
       <MyNavBar />
       <Container className="mt-4">
-        <Card className="shadow-sm p-4 mb-5">
+        <Card className="shadow-sm p-2 mb-5">
           <Card.Body>
             <Card.Title className="text-center">{capsula.title}</Card.Title>
             <Card.Text className="text-center">
@@ -289,7 +289,7 @@ function Capsula() {
                         <Form.Label>Messaggio</Form.Label>
                         <Form.Control
                           as="textarea"
-                          rows={3}
+                          rows={8}
                           defaultValue={capsula.message}
                           onChange={(e) =>
                             setFormData({

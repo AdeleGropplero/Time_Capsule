@@ -3,11 +3,44 @@ import MyNavBar from "./MyNavBar";
 import api from "../api/api"; // Importo Axios configurato
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import React from "react";
+import Slider from "react-slick";
 
 function LeMieCaps() {
+  //🚩🚩🚩 Sistemare responsivness carosello e card!!!!!! e ovviamente anche lo stile generale tipo i titoli ecc
+
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
   const [capsule, setCapsule] = useState([]);
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 2,
+    slidesToScroll: 2,
+    arrows: true,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />
+  };
+
+  function SampleNextArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{
+          ...style
+        }}
+        onClick={onClick}
+      />
+    );
+  }
+
+  function SamplePrevArrow(props) {
+    const { className, style, onClick } = props;
+    return <div className={className} style={{ ...style }} onClick={onClick} />;
+  }
 
   useEffect(() => {
     api
@@ -30,10 +63,12 @@ function LeMieCaps() {
 
   const generateCard = (nomeLista) => {
     return nomeLista.length > 0 ? (
-      <Row>
-        {nomeLista.map((cap) => (
-          <Col key={cap.id} xs={6} sm={3} md={4}>
+      <div className="slider-container">
+        <Slider {...settings}>
+          {nomeLista.map((cap) => (
             <Card
+              key={cap.id}
+              className="laMiaCard"
               onClick={() => {
                 navigate(`/capsula/${cap.id}`);
               }}
@@ -50,9 +85,9 @@ function LeMieCaps() {
                 <Card.Text>Si apre il: {cap.openDate}</Card.Text>
               </Card.Body>
             </Card>
-          </Col>
-        ))}
-      </Row>
+          ))}
+        </Slider>
+      </div>
     ) : (
       <p>Nessuna capsula presente.</p>
     );

@@ -172,12 +172,13 @@ function CapsulaPersonaleCreate() {
               <Form.Label>Scrivi un messaggio</Form.Label>
               <Form.Control
                 as="textarea"
-                rows={4}
+                rows={10}
                 name="message"
                 value={formData.message}
                 onChange={handleChange}
-                placeholder="Scrivi un messaggio da conservare nella capsula..."
+                placeholder="Scrivi un messaggio da conservare nella capsula... "
                 spellCheck="false" // Disabilita il correttore ortografico
+                maxLength={10000} // Limite massimo di 10000 caratteri
               />
             </Form.Group>
 

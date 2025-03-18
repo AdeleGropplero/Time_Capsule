@@ -12,8 +12,9 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { logout, setUser } from "./redux/reducers/authSlice.js";
 import api from "./api/api"; // Importa Axios configuratoimport api from
-import Capsula from "./components/c_CapPersonale/Capsula.jsx";
+import Capsula from "./components/Capsula.jsx";
 import LeMieCaps from "./components/LeMieCaps.jsx";
+import Profilo from "./components/Profilo.jsx";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -77,6 +78,15 @@ function App() {
           element={
             <ProtectedRoute>
               <LeMieCaps />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path={`/profilo/:id`}
+          element={
+            <ProtectedRoute>
+              <Profilo />
             </ProtectedRoute>
           }
         />
