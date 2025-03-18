@@ -228,7 +228,7 @@ button.searchBtn:hover {
 .bottone-crea {
   background: radial-gradient(
     circle,
-    rgb(168, 168, 168) 0%,
+    rgb(144, 144, 144) 0%,
     rgba(83, 111, 133, 1) 70%
   );
   border: #e0dfdf;
@@ -240,7 +240,7 @@ button.searchBtn:hover {
   background: radial-gradient(
     circle,
     rgba(83, 111, 133, 1) 20%,
-    /* Colore interno prima */ rgb(168, 168, 168) 100% /* Colore esterno dopo */
+    /* Colore interno prima */ rgb(144, 144, 144) 100% /* Colore esterno dopo */
   );
   box-shadow: 0 3px 8px rgb(53, 53, 53); /* Aumenta l'ombra durante l'hover */
 }
@@ -277,3 +277,6 @@ label[for="custom-switch"] {
   font-size: 0.7rem;
 }
 /* ------------------------------------------------🟨🟨🟨----------------------------------------- */
+/* /capsula/:id -----------------------------------🟩🟩🟩---------------------------------------------- */
+
+/*  -----------------------------------------------🟩🟩🟩---------------------------------------------- */
