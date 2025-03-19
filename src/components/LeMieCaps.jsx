@@ -77,7 +77,7 @@ function LeMieCaps() {
                 <img
                   src={`/immagini_caps/capsula_${
                     Math.floor(Math.random() * 20) + 1
-                  }.jpeg`} //{"/immagini_caps/capsula_" + randomN + ".jpeg"}
+                  }.jpeg`} //{"/immagini_caps/capsula_" + randomN + ".jpeg"} // sistemare caricamento img al caricamento componente
                   alt="img capsula"
                   className="img-fluid mb-2"
                 />
