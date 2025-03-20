@@ -14,12 +14,16 @@ function ChooseCapsule() {
             <Card
               border="secondary"
               className="card-home"
-              onClick={() => navigate("/create-personal")}
+              onClick={() =>
+                navigate("/create-capsula", {
+                  state: { tipoCapsula: "PERSONALE" } // Passa il tipo di capsula come state
+                })
+              }
             >
               <Card.Header className="p-1 ps-3 header-pers d-flex justify-content-between align-items-center">
                 Personale{" "}
                 <img
-                  src="/navbar/iconeSvg/profilo.svg"
+                  src="/iconeGenerali/profilo.svg"
                   alt="profilo Icon"
                   style={{ width: 15, height: 15 }}
                   className="me-2"
@@ -36,11 +40,19 @@ function ChooseCapsule() {
           </Col>
 
           <Col xs={6} md={4} lg={3}>
-            <Card border="secondary" className="card-home">
+            <Card
+              border="secondary"
+              className="card-home"
+              onClick={() =>
+                navigate("/create-capsula", {
+                  state: { tipoCapsula: "GRUPPO" } // Passa il tipo di capsula come state
+                })
+              }
+            >
               <Card.Header className="p-1 ps-3 header-pers d-flex justify-content-between align-items-center">
                 Di gruppo{" "}
                 <img
-                  src="/navbar/iconeSvg/gruppo.svg"
+                  src="/iconeGenerali/gruppo.svg"
                   alt="profilo Icon"
                   style={{ width: 15, height: 15 }}
                   className="me-2"

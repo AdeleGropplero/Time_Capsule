@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./App.css";
 import MyHome from "./components/MyHome";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import CapsulaPersonaleCreate from "./components/CapsulaPersonaleCreate";
+import CapsulaCreate from "./components/CapsulaCreate.jsx";
 import Registration from "./components/Registration";
 import Login from "./components/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -65,10 +65,10 @@ function App() {
           }
         />
         <Route
-          path="/create-personal"
+          path="/create-capsula"
           element={
             <ProtectedRoute>
-              <CapsulaPersonaleCreate />
+              <CapsulaCreate />
             </ProtectedRoute>
           }
         />

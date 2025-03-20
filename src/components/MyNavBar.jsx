@@ -59,7 +59,7 @@ function MyNavBar() {
               className="nav-text-personalized"
             >
               <img
-                src="/navbar/iconeSvg/profilo.svg"
+                src="/iconeGenerali/profilo.svg"
                 alt="profilo Icon"
                 style={{ width: 30, height: 26 }}
                 className="me-2 ps-1 "

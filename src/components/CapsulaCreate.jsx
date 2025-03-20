@@ -1,11 +1,14 @@
 import MyNavBar from "./MyNavBar";
 import { useState } from "react";
-import { Form, Button, Container } from "react-bootstrap";
+import { Form, Button, Container, Modal } from "react-bootstrap";
 import api from "../api/api"; // Importo Axios configurato
+import { useLocation } from "react-router-dom";
 
 //🚩🚩🚩 dopo l'invio cancellare il form
 
-function CapsulaPersonaleCreate() {
+function CapsulaCreate() {
+  const location = useLocation(); // Hook per accedere ai dati passati tramite state
+  const tipoCapsula = location.state?.tipoCapsula || "PERSONALE"; // Recupero il tipo di capsula dallo state 🅰️🅰️🅰️ verificare se questo || ci da problemi
   const idUtente = JSON.parse(localStorage.getItem("user")).id;
   const [formData, setFormData] = useState({
     title: "",
@@ -15,13 +18,42 @@ function CapsulaPersonaleCreate() {
     textFiles: [], // Nuovo campo per i file di testo
     message: "", // Nuovo campo per il testo scritto manualmente
     pubblica: false,
-    idUtente: idUtente
+    tipoCapsula: tipoCapsula,
+    idUtente: idUtente,
+    invitiMail: []
   });
+
+  const [showModal, setShowModal] = useState(false);
+  const [emailInput, setEmailInput] = useState("");
 
   // Funzione per gestire i cambiamenti nei campi di input
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (name === "invitiMail") {
+      setEmailInput(value); // Aggiorna il valore della mail
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const addEmail = () => {
+    // Controllo se l'email è valida
+    if (!emailInput.trim() || !emailInput.includes("@")) {
+      alert("Inserisci un'email valida.");
+      return;
+    }
+
+    if (formData.invitiMail.includes(emailInput)) {
+      alert("Questa mail è già stata aggiunta.");
+      return;
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      invitiMail: [...prev.invitiMail, emailInput]
+    }));
+
+    setEmailInput("");
   };
 
   // Funzione per gestire il caricamento dei file
@@ -64,13 +96,15 @@ function CapsulaPersonaleCreate() {
     form.append("email", formData.email);
     form.append("message", formData.message);
     form.append("pubblica", formData.pubblica);
+    form.append("tipoCapsula", formData.tipoCapsula);
     form.append("idUtente", formData.idUtente);
+    form.append("invitiMail", formData.invitiMail);
 
     formData.media.forEach((file) => form.append("media", file.file));
     formData.textFiles.forEach((file) => form.append("textFiles", file.file)); // file.file si riferisce al file che l'utente ha caricato, che è contenuto nell'oggetto file e che deve essere inviato tramite il FormData
 
     api
-      .post("/create-personal", form)
+      .post("/create-capsula", form)
       .then((res) => {
         if (res.status === 200) {
           alert("Capsula creata con successo!");
@@ -83,7 +117,9 @@ function CapsulaPersonaleCreate() {
             textFiles: [],
             message: "",
             pubblica: false,
-            idUtente: idUtente
+            tipoCapsula: tipoCapsula,
+            idUtente: idUtente,
+            invitiMail: []
           });
         }
       })
@@ -119,11 +155,66 @@ function CapsulaPersonaleCreate() {
     <>
       <MyNavBar />
       {/* --------------------- */}
-
       <Container className="mt-4 px-4">
         <div className=" form-capsula-div mb-3">
           <h4>Riempi la tua Capsula</h4>
           <Form onSubmit={handleSubmit}>
+            {tipoCapsula === "GRUPPO" ? (
+              <Container>
+                <Form.Group className="mb-3 form-text">
+                  <Form.Label>
+                    Inserisci le mail di chi vuoi invitare
+                  </Form.Label>
+                  <div className="d-flex align-items-center">
+                    {/* Campo di input email */}
+                    <Form.Control
+                      type="email"
+                      name="invitiMail"
+                      value={emailInput}
+                      onChange={handleChange}
+                      placeholder="Inserisci un'email"
+                    />
+                    <Button
+                      size="sm"
+                      className="m-2 px-1 pt-0  cancel-btn bottone-crea"
+                      onClick={() => addEmail()}
+                    >
+                      <img src="/iconeGenerali/add.svg" alt="aggiungi mail" />
+                    </Button>
+                    <Button
+                      size="sm"
+                      className="pb-1 pt-0 px-1 cancel-btn bottone-crea"
+                      onClick={() => setShowModal(true)}
+                      aria-label="Vedi partecipanti"
+                    >
+                      <img
+                        src="/iconeGenerali/gruppo.svg"
+                        alt="vedi partecipanti"
+                      />
+                    </Button>
+                  </div>
+
+                  {/* Messaggio di errore per email non valida */}
+                  <Form.Control.Feedback type="invalid">
+                    Inserisci un'email valida.
+                  </Form.Control.Feedback>
+                </Form.Group>
+
+                {/* Modale */}
+                <Modal show={showModal} onHide={() => setShowModal(false)}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Persone aggiunte</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <ol>
+                      {formData.invitiMail.map((mail, index) => (
+                        <li key={index}>{mail}</li>
+                      ))}
+                    </ol>
+                  </Modal.Body>
+                </Modal>
+              </Container>
+            ) : null}
             {/* Titolo */}
             <Form.Group className="mb-3 form-text">
               <Form.Label>Titolo</Form.Label>
@@ -270,4 +361,4 @@ function CapsulaPersonaleCreate() {
   );
 }
 
-export default CapsulaPersonaleCreate;
+export default CapsulaCreate;
