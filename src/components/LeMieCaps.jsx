@@ -1,4 +1,4 @@
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Card, Container } from "react-bootstrap";
 import MyNavBar from "./MyNavBar";
 import api from "../api/api"; // Importo Axios configurato
 import { useEffect, useState } from "react";
@@ -7,47 +7,16 @@ import React from "react";
 import Slider from "react-slick";
 
 function LeMieCaps() {
-  //🚩🚩🚩 Sistemare responsivness carosello e card!!!!!! e ovviamente anche lo stile generale tipo i titoli ecc
-
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
   const [capsule, setCapsule] = useState([]);
-
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 2,
-    slidesToScroll: 2,
-    arrows: true,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />
-  };
-
-  function SampleNextArrow(props) {
-    const { className, style, onClick } = props;
-    return (
-      <div
-        className={className}
-        style={{
-          ...style
-        }}
-        onClick={onClick}
-      />
-    );
-  }
-
-  function SamplePrevArrow(props) {
-    const { className, style, onClick } = props;
-    return <div className={className} style={{ ...style }} onClick={onClick} />;
-  }
 
   useEffect(() => {
     api
       .get(`/le-mie-caps/${user.id}`)
       .then((res) => {
         if (res.status === 200) {
-          setCapsule(res.data); //In Axios, res.data contiene il corpo della risposta ricevuta dal server
+          setCapsule(res.data);
           console.log(res.data);
         }
       })
@@ -58,26 +27,36 @@ function LeMieCaps() {
 
   // Filtro le capsule in base alla tipologia
   const capPersonali = capsule.filter((cap) => cap.capsula === "PERSONALE");
-  const capGruppo = capsule.filter((cap) => cap.capsula === "GRUPPO"); //Ancora da implementare lato back.
-  const capEvento = capsule.filter((cap) => cap.capsula === "EVENTO"); //Ancora da implementare lato back.
+  const capGruppo = capsule.filter((cap) => cap.capsula === "GRUPPO");
+  const capEvento = capsule.filter((cap) => cap.capsula === "EVENTO");
 
-  const generateCard = (nomeLista) => {
-    return nomeLista.length > 0 ? (
+  // Impostazioni del carosello
+  const getSliderSettings = (listaCapsule) => ({
+    dots: true,
+    infinite: listaCapsule.length > 1,
+    speed: 500,
+    slidesToShow: Math.min(listaCapsule.length, 2),
+    slidesToScroll: 1,
+    arrows: true
+  });
+
+  const generateCard = (listaCapsule) => {
+    if (listaCapsule.length === 0) return <p>Nessuna capsula presente.</p>;
+
+    return (
       <div className="slider-container">
-        <Slider {...settings}>
-          {nomeLista.map((cap) => (
+        <Slider {...getSliderSettings(listaCapsule)}>
+          {listaCapsule.map((cap) => (
             <Card
               key={cap.id}
               className="laMiaCard"
-              onClick={() => {
-                navigate(`/capsula/${cap.id}`);
-              }}
+              onClick={() => navigate(`/capsula/${cap.id}`)}
             >
               <Card.Body>
                 <img
                   src={`/immagini_caps/capsula_${
                     Math.floor(Math.random() * 20) + 1
-                  }.jpeg`} //{"/immagini_caps/capsula_" + randomN + ".jpeg"} // sistemare caricamento img al caricamento componente
+                  }.jpeg`}
                   alt="img capsula"
                   className="img-fluid mb-2"
                 />
@@ -88,8 +67,6 @@ function LeMieCaps() {
           ))}
         </Slider>
       </div>
-    ) : (
-      <p>Nessuna capsula presente.</p>
     );
   };
 
@@ -110,4 +87,5 @@ function LeMieCaps() {
     </>
   );
 }
+
 export default LeMieCaps;

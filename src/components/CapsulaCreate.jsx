@@ -98,7 +98,11 @@ function CapsulaCreate() {
     form.append("pubblica", formData.pubblica);
     form.append("tipoCapsula", formData.tipoCapsula);
     form.append("idUtente", formData.idUtente);
-    form.append("invitiMail", formData.invitiMail);
+
+    // Aggiungo ogni email come parametro multiplo
+    formData.invitiMail.forEach((e) => {
+      form.append("invitiMail", e);
+    });
 
     formData.media.forEach((file) => form.append("media", file.file));
     formData.textFiles.forEach((file) => form.append("textFiles", file.file)); // file.file si riferisce al file che l'utente ha caricato, che è contenuto nell'oggetto file e che deve essere inviato tramite il FormData
@@ -109,6 +113,7 @@ function CapsulaCreate() {
         if (res.status === 200) {
           alert("Capsula creata con successo!");
           // Reset del form dopo l'invio
+          console.log(formData.invitiMail);
           setFormData({
             title: "",
             openDate: "",
@@ -190,6 +195,7 @@ function CapsulaCreate() {
                       <img
                         src="/iconeGenerali/gruppo.svg"
                         alt="vedi partecipanti"
+                        style={{ filter: "invert(1)" }} // Cambia il colore (bianco su sfondo scuro)
                       />
                     </Button>
                   </div>
