@@ -1,4 +1,4 @@
-import { Button, Card, Container, Modal } from "react-bootstrap";
+import { Button, Card, Col, Container, Modal, Row } from "react-bootstrap";
 import MyNavBar from "./MyNavBar";
 import { useEffect, useState } from "react";
 import api from "../api/api"; // Importo Axios configurato
@@ -75,47 +75,57 @@ function Profilo() {
     <>
       <MyNavBar />
       <Container>
-        <Card className="my-3">
-          <div className="d-flex ms-2 mt-3">
-            <div className="avatar">
-              <img
-                src="/prova_profilo.png"
-                alt="immagine profilo"
-                className="img-fluid"
-              />
-            </div>
-            <div className=" mx-2">
-              <h6>
-                {datiProfilo.fullName}{" "}
-                <Button
-                  className="py-0 px-1 bottone-crea"
-                  onClick={() => setShowModal(true)}
-                >
+        <Row className="justify-content-center">
+          <Col xs={12} sm={10} md={8} lg={6}>
+            <Card className="my-3 card-profilo">
+              <div className="d-flex flex-column align-items-center justify-content-center ms-2 mt-3 mb-3">
+                <div className="avatar">
                   <img
-                    className="pb-1"
-                    src="/iconeGenerali/pencil.svg"
-                    alt="modifica"
+                    src="/prova_profilo.jpeg"
+                    alt="immagine profilo"
+                    className="img-fluid"
                   />
-                </Button>
-              </h6>
-              <p>Mail: {datiProfilo.email}</p>
-              <p>Time traveller dal: {datiProfilo.dataRegistrazione}</p>
-            </div>
-          </div>
+                </div>
+                <div className="mt-2 mx-2 name-profilo">
+                  <h6 className="name-profilo">{datiProfilo.fullName} </h6>
+                </div>
+              </div>
+              <div className="ms-3">
+                <p>
+                  {" "}
+                  <b>Mail:</b> {datiProfilo.email}
+                </p>
+                <p>
+                  {" "}
+                  <b>Time traveler dal:</b> {datiProfilo.dataRegistrazione}
+                </p>
+              </div>
 
-          <Card.Body>
-            <Card.Title>Quanto hai viggiato?</Card.Title>
-            <Card.Text>
-              Caps personali create: {datiProfilo.numCapsulePersonali}
-            </Card.Text>
-            <Card.Text>
-              Caps di gruppo create: {datiProfilo.numCapsuleGruppo}
-            </Card.Text>
-            <Card.Text>
-              Caps evento create: {datiProfilo.numCapsuleEvento}
-            </Card.Text>
-          </Card.Body>
-        </Card>
+              <Card.Body className="box-profilo my-3 mx-3">
+                <Card.Title>Quanto hai viggiato?</Card.Title>
+                <Card.Text>
+                  Caps personali create: {datiProfilo.numCapsulePersonali}
+                </Card.Text>
+                <Card.Text>
+                  Caps di gruppo create: {datiProfilo.numCapsuleGruppo}
+                </Card.Text>
+                <Card.Text>
+                  Caps evento create: {datiProfilo.numCapsuleEvento}
+                </Card.Text>
+              </Card.Body>
+              <Button
+                className="py-0 px-1 bottone-crea modifica-profilo-btn m-2"
+                onClick={() => setShowModal(true)}
+              >
+                <img
+                  className="pb-1"
+                  src="/iconeGenerali/pencil.svg"
+                  alt="modifica"
+                />
+              </Button>
+            </Card>
+          </Col>
+        </Row>
       </Container>
 
       {/* Modale */}

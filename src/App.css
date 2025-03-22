@@ -278,24 +278,6 @@ label[for="custom-switch"] {
 }
 /* ------------------------------------------------🟨🟨🟨----------------------------------------- */
 
-/* profilo ----------------------------------------🟩🟩🟩---------------------------------------------- */
-.avatar {
-  width: 120px; /* Imposta una larghezza fissa */
-  height: 120px; /* Imposta un'altezza fissa */
-  overflow: hidden; /* Assicura che l'immagine non esca dai bordi */
-  border-radius: 50%; /* Rende il contenitore tondo */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #41596b;
-}
-
-.avatar img {
-  width: 100%;
-  height: 100%;
-}
-/*  -----------------------------------------------🟩🟩🟩---------------------------------------------- */
-
 /* Le-mie-cap-------------------------------------🟪🟪🟪-------------------------------------------- */
 
 .laMiaCard {
@@ -335,3 +317,48 @@ label[for="custom-switch"] {
   color: rgb(83, 111, 133, 1);
 }
 /* ------------------------------------------------🟪🟪🟪----------------------------------------- */
+/* PROFILO-----------------------------------------🟦🟦🟦----------------------------------------- */
+
+.card-profilo {
+  background-color: rgba(65, 89, 107, 0.177);
+  color: rgb(55, 77, 93);
+  box-shadow: 1px 3px 5px rgb(65, 89, 107);
+}
+
+.avatar {
+  width: 120px; /* Imposta una larghezza fissa */
+  height: 120px; /* Imposta un'altezza fissa */
+  overflow: hidden; /* Assicura che l'immagine non esca dai bordi */
+  border-radius: 50%; /* Rende il contenitore tondo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #41596b;
+  box-shadow: 2px 3px 4px rgba(65, 89, 107, 0.745);
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+}
+
+.name-profilo {
+  font-size: 1.7rem;
+}
+
+.box-profilo {
+  border: rgba(65, 89, 107, 0) 1px solid;
+  border-radius: 10px;
+  background-color: rgba(246, 247, 247, 0.372);
+}
+
+.modifica-profilo-btn {
+  position: absolute;
+  right: 0;
+}
+
+/* ------------------------------------------------🟦🟦🟦----------------------------------------- */
+
+/*  -----------------------------------------------🟩🟩🟩---------------------------------------------- */
+
+/*  -----------------------------------------------🟩🟩🟩---------------------------------------------- */
