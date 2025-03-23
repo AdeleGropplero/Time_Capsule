@@ -8,7 +8,7 @@ function ChooseTypeEvent() {
         <h5 className="titoli-sezioni">Crea un Evento</h5>
         <Row className="justify-content-center">
           <Col xs={6} md={4} lg={3}>
-            <Card border="secondary" className="card-home">
+            <Card className="card-home">
               <Card.Header className="p-1 ps-3 header-pers">Locale</Card.Header>
               <Card.Body className="p-0">
                 <img
@@ -21,7 +21,7 @@ function ChooseTypeEvent() {
           </Col>
 
           <Col xs={6} md={4} lg={3}>
-            <Card border="secondary" className="card-home">
+            <Card className="card-home">
               <Card.Header className="p-1 ps-3 header-pers">
                 Globale
               </Card.Header>

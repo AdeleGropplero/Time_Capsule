@@ -35,14 +35,52 @@ function CaroselloEventi() {
     speed: 6000,
     autoplaySpeed: 1000,
     cssEase: "linear",
-    arrows: false
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 1800,
+        settings: {
+          slidesToShow: 5
+        }
+      },
+      {
+        breakpoint: 1600,
+        settings: {
+          slidesToShow: 5
+        }
+      },
+      {
+        breakpoint: 1200,
+        settings: {
+          slidesToShow: 4
+        }
+      },
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 3
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2
+        }
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 2
+        }
+      }
+    ]
   };
 
   return (
-    <div className="slider-container">
-      <Container className="mt-3 mb-5">
+    <div className="slider-container ">
+      <Container className="mt-3 mb-5 ">
         <h5 className="titoli-sezioni text-center">Gli eventi del momento</h5>
-        <Slider {...settings}>
+        <Slider {...settings} className="fade-carosello ">
           {items.map((item) => (
             <div key={item.id}>
               <Card border="secondary" className="card-home m-1">

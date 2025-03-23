@@ -1,6 +1,6 @@
 import MyNavBar from "./MyNavBar";
 import { useState } from "react";
-import { Form, Button, Container, Modal } from "react-bootstrap";
+import { Form, Button, Container, Modal, Spinner } from "react-bootstrap";
 import api from "../api/api"; // Importo Axios configurato
 import { useLocation } from "react-router-dom";
 
@@ -23,6 +23,7 @@ function CapsulaCreate() {
     invitiMail: []
   });
 
+  const [isLoading, setIsLoading] = useState(false); // Stato per gestire il caricamento
   const [showModal, setShowModal] = useState(false);
   const [emailInput, setEmailInput] = useState("");
 
@@ -90,6 +91,8 @@ function CapsulaCreate() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    setIsLoading(true);
+
     const form = new FormData();
     form.append("title", formData.title);
     form.append("openDate", formData.openDate);
@@ -130,6 +133,9 @@ function CapsulaCreate() {
       })
       .catch((error) => {
         console.error("Errore durante la creazione della capsula:", error);
+      })
+      .finally(() => {
+        setIsLoading(false); // Termina il caricamento
       });
   };
 
@@ -309,7 +315,22 @@ function CapsulaCreate() {
 
             {/* Pulsante di invio */}
             <div className="d-flex justify-content-center my-4">
-              <Button variant="primary" type="submit" className="bottone-crea">
+              <Button
+                variant="primary"
+                type="submit"
+                className="bottone-crea"
+                disabled={isLoading} // Disabilita il bottone durante il caricamento
+              >
+                {isLoading ? (
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                    className="me-2"
+                  />
+                ) : null}
                 Crea Capsula
               </Button>
             </div>

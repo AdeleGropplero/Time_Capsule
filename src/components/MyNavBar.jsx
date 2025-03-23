@@ -19,14 +19,16 @@ function MyNavBar() {
   const handleToggle = (isOpen) => setIsDropOpen(isOpen);
 
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
+    <Navbar expand="lg" className=" myNav">
+      {" "}
+      {/* bg-body-tertiary */}
       <Container className="justify-content-between">
         <img
           src="/navbar/logo.svg"
           alt="time capsule logo"
-          style={{ width: 80, height: 60, cursor: "pointer" }}
+          style={{ width: 95, height: 75, cursor: "pointer" }}
           onClick={() => navigate("/home")}
-          className="me-1"
+          className="me-1 logo-navbar"
         />
 
         <Navbar.Brand
@@ -47,7 +49,7 @@ function MyNavBar() {
                     : "/navbar/iconeSvg/capsulaChiusa.svg"
                 }
                 alt="Dropdown Icon"
-                style={{ width: 36, height: 36 }}
+                style={{ width: 56, height: 56 }}
               />
             }
             id="basic-nav-dropdown"

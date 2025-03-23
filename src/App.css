@@ -52,7 +52,7 @@ body {
   font-optical-sizing: auto;
   font-style: normal;
   overflow-x: hidden; /* Impedisce lo scrolling orizzontale */
-  color: rgb(55, 77, 93);
+  color: #374d5d;
 }
 
 /* Gestione BackGround */
@@ -66,6 +66,16 @@ body {
 /* ----------------------------------------------🟩🟩🟩------------------------------------------ */
 
 /* NAV BAR --------------------------------------🟧🟧🟧------------------------------------------- */
+.myNav {
+  height: 90px;
+  background-color: #dde1e5fd;
+}
+
+@media (max-width: 410px) {
+  .logo-navbar {
+    display: none;
+  }
+}
 
 nav .customDropdown .dropdown-menu {
   position: absolute;
@@ -76,11 +86,24 @@ nav .customDropdown .dropdown-menu {
 .my-navbar-brand {
   font-weight: 500;
   color: #374d5d;
+  font-size: 1.5rem;
 }
 
 .nav-text-personalized {
   font-weight: 400;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
+}
+
+@media (min-width: 1100px) {
+  .myNav {
+    height: 100px;
+    background-color: #dde1e5fd;
+  }
+  .my-navbar-brand {
+    font-weight: 500;
+    color: #374d5d;
+    font-size: 2rem;
+  }
 }
 
 /* -----------------------------------------------🟧🟧🟧-------------------------------------------- */
@@ -109,15 +132,63 @@ button.searchBtn:hover {
 /* ------------------------------------------------🟪🟪🟪----------------------------------------- */
 
 /* EVENTI IN EVIDENZA------------------------------🟨🟨🟨----------------------------------------- */
+/* Aggiungiamo un contenitore con sfumatura laterale */
+.fade-carosello {
+  position: relative;
+  overflow: hidden; /* Nasconde tutto ciò che fuoriesce dai bordi */
+  width: 100%; /* Assicurati che il carosello prenda tutta la larghezza */
+}
+
+.fade-carosello::before,
+.fade-carosello::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 5%; /* Aumenta la larghezza della sfumatura per maggiore visibilità */
+  pointer-events: none; /* Non interferisce con gli eventi */
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* per l'ombra alle estremità con js */
+.fade-carosello::before {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 1),
+    rgba(0, 0, 0, 0)
+  );
+  opacity: 1;
+}
+
+.fade-carosello::after {
+  right: 0;
+  background: linear-gradient(
+    to left,
+    rgba(255, 255, 255, 1),
+    rgba(0, 0, 0, 0)
+  );
+  opacity: 1;
+}
+
+.fade-carosello.start::before {
+  opacity: 1;
+}
+.fade-carosello.start::after {
+  opacity: 0;
+}
+
 /* ------------------------------------------------🟨🟨🟨----------------------------------------- */
 
 /* CHOOSE CAPS-------------------------------------🟦🟦🟦----------------------------------------- */
 .titoli-sezioni {
-  font-size: 0.9rem;
+  font-size: 1.3rem;
 }
 
 .header-pers {
-  font-size: 0.85rem;
+  font-size: 0.92rem;
+  color: rgb(55, 77, 93);
 }
 
 .card-home {
@@ -125,6 +196,7 @@ button.searchBtn:hover {
   overflow: hidden;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.303);
   border-radius: 10px;
+  border: #395060 1px solid;
 }
 
 .card-home:hover {
@@ -281,15 +353,34 @@ label[for="custom-switch"] {
 /* ------------------------------------------------🟨🟨🟨----------------------------------------- */
 
 /* Le-mie-cap--------------------------------------🟪🟪🟪-------------------------------------------- */
+.slider-leMieCaps {
+}
 
 .laMiaCard {
   cursor: pointer;
+  color: #374d5d;
+  box-shadow: 0px 4px 10px rgb(40, 72, 94);
+  border-radius: 10px;
+  border: #395060 1px solid;
+}
+
+.laMiaCard:hover {
+  cursor: pointer;
+  transform: scale(1.02); /* Ingrandisce del 2% */
 }
 
 .laMiaCard .card-title {
-  font-size: 1rem;
-  height: 2.5rem;
+  font-size: 1.3rem;
+  height: 3.3rem;
   overflow: hidden;
+}
+
+@media (max-width: 410px) {
+  .laMiaCard .card-title {
+    font-size: 1rem;
+    height: 3.3rem;
+    overflow: hidden;
+  }
 }
 
 .slick-prev,

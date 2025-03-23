@@ -1,4 +1,4 @@
-import { Card, Container } from "react-bootstrap";
+import { Card, Col, Container, Row } from "react-bootstrap";
 import MyNavBar from "./MyNavBar";
 import api from "../api/api"; // Importo Axios configurato
 import { useEffect, useState } from "react";
@@ -31,39 +31,82 @@ function LeMieCaps() {
   const capEvento = capsule.filter((cap) => cap.capsula === "EVENTO");
 
   // Impostazioni del carosello
-  const getSliderSettings = (listaCapsule) => ({
-    dots: true,
-    infinite: listaCapsule.length > 1,
-    speed: 500,
-    slidesToShow: Math.min(listaCapsule.length, 2),
-    slidesToScroll: 1,
-    arrows: true
-  });
+  const getSliderSettings = (listaCapsule) => {
+    const isSingleItem = listaCapsule.length <= 1; // Verifica se ci sono meno di due capsule
+
+    return {
+      dots: !isSingleItem, // Mostra i puntini solo se ci sono più di una capsula
+      infinite: false,
+      speed: 500,
+      slidesToShow: Math.min(listaCapsule.length, 5), // Max 5 capsule per riga
+      slidesToScroll: 1,
+      arrows: true,
+      responsive: [
+        {
+          breakpoint: 1800,
+          settings: {
+            slidesToShow: Math.min(listaCapsule.length, 5) // Limita il numero di slide in base alla lista
+          }
+        },
+        {
+          breakpoint: 1600,
+          settings: {
+            slidesToShow: Math.min(listaCapsule.length, 5)
+          }
+        },
+        {
+          breakpoint: 1200,
+          settings: {
+            slidesToShow: Math.min(listaCapsule.length, 4)
+          }
+        },
+        {
+          breakpoint: 992,
+          settings: {
+            slidesToShow: Math.min(listaCapsule.length, 3)
+          }
+        },
+        {
+          breakpoint: 768,
+          settings: {
+            slidesToShow: Math.min(listaCapsule.length, 2)
+          }
+        },
+        {
+          breakpoint: 576,
+          settings: {
+            slidesToShow: Math.min(listaCapsule.length, 1)
+          }
+        }
+      ]
+    };
+  };
 
   const generateCard = (listaCapsule) => {
-    if (listaCapsule.length === 0) return <p>Nessuna capsula presente.</p>;
+    if (listaCapsule.length === 0) return null;
 
     return (
-      <div className="slider-container">
+      <div className="slider-leMieCaps">
         <Slider {...getSliderSettings(listaCapsule)}>
           {listaCapsule.map((cap) => (
-            <Card
-              key={cap.id}
-              className="laMiaCard"
-              onClick={() => navigate(`/capsula/${cap.id}`)}
-            >
-              <Card.Body>
-                <img
-                  src={`/immagini_caps/capsula_${
-                    Math.floor(Math.random() * 20) + 1
-                  }.jpeg`}
-                  alt="img capsula"
-                  className="img-fluid mb-2"
-                />
-                <Card.Title>{cap.title}</Card.Title>
-                <Card.Text>Si apre il: {cap.openDate}</Card.Text>
-              </Card.Body>
-            </Card>
+            <div key={cap.id}>
+              <Card
+                className="laMiaCard m-3"
+                onClick={() => navigate(`/capsula/${cap.id}`)}
+              >
+                <Card.Body>
+                  <img
+                    src={`/immagini_caps/capsula_${
+                      Math.floor(Math.random() * 20) + 1
+                    }.jpeg`}
+                    alt="img capsula"
+                    className="img-fluid mb-2"
+                  />
+                  <Card.Title>{cap.title}</Card.Title>
+                  <Card.Text>Si apre il: {cap.openDate}</Card.Text>
+                </Card.Body>
+              </Card>
+            </div>
           ))}
         </Slider>
       </div>
@@ -74,15 +117,26 @@ function LeMieCaps() {
     <>
       <MyNavBar />
       <Container>
-        <h4 className="text-center mt-3">
-          Benvenuto {user.fullName}, ecco le tue caps!
-        </h4>
-        <p className="mt-3">Capsule Personali</p>
-        {generateCard(capPersonali)}
-        <p className="mt-3">Capsule Gruppo</p>
-        {generateCard(capGruppo)}
-        <p className="mt-3">Capsule Evento</p>
-        {generateCard(capEvento)}
+        {capPersonali.length > 0 && (
+          <>
+            <h4 className="mt-4 text-center">Capsule Personali</h4>
+            {generateCard(capPersonali)}
+          </>
+        )}
+
+        {capGruppo.length > 0 && (
+          <>
+            <h4 className="mt-4 text-center">Capsule Gruppo</h4>
+            {generateCard(capGruppo)}
+          </>
+        )}
+
+        {capEvento.length > 0 && (
+          <>
+            <h4 className="mt-4 text-center">Capsule Evento</h4>
+            {generateCard(capEvento)}
+          </>
+        )}
       </Container>
     </>
   );

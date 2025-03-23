@@ -12,7 +12,6 @@ function ChooseCapsule() {
         <Row className="justify-content-center">
           <Col xs={6} md={4} lg={3}>
             <Card
-              border="secondary"
               className="card-home"
               onClick={() =>
                 navigate("/create-capsula", {
@@ -41,7 +40,6 @@ function ChooseCapsule() {
 
           <Col xs={6} md={4} lg={3}>
             <Card
-              border="secondary"
               className="card-home"
               onClick={() =>
                 navigate("/create-capsula", {
