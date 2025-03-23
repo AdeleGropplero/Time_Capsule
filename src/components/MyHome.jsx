@@ -19,10 +19,12 @@ function MyHome() {
   return (
     <>
       <MyNavBar />
-      <MySearchBar />
-      <CaroselloEventi />
-      <ChooseCapsule />
-      <ChooseTypeEvent />
+      <Container fluid className="justify-content-center container-home">
+        <MySearchBar />
+        <ChooseCapsule />
+        <ChooseTypeEvent />
+        <CaroselloEventi />
+      </Container>
     </>
   );
 }

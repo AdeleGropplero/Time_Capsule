@@ -1,7 +1,7 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
-import { Container } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { useState } from "react";
 
 function MySearchBar() {
@@ -13,20 +13,24 @@ function MySearchBar() {
   };
 
   return (
-    <Container className="mt-3 px-5">
-      <InputGroup className="mb-3 ">
-        <Form.Control
-          className="search-personalized"
-          placeholder="Cerca una Caps o un evento"
-          aria-label="search input"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <Button className="searchBtn" onClick={handleSearch}>
-          <img src="/iconeGenerali/search.svg" alt="lente ricerca" />
-        </Button>
-      </InputGroup>
-    </Container>
+    <Row className="justify-content-center">
+      <Col xs={12} md={8} lg={6}>
+        <Container className="mt-3">
+          <InputGroup className="mb-3 ">
+            <Form.Control
+              className="search-personalized"
+              placeholder="Cerca una Caps o un evento"
+              aria-label="search input"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <Button className="searchBtn" onClick={handleSearch}>
+              <img src="/iconeGenerali/search.svg" alt="lente ricerca" />
+            </Button>
+          </InputGroup>
+        </Container>
+      </Col>
+    </Row>
   );
 }
 

@@ -102,7 +102,7 @@ function Profilo() {
               </div>
 
               <Card.Body className="box-profilo my-3 mx-3">
-                <Card.Title>Quanto hai viggiato?</Card.Title>
+                <Card.Title>Quanto hai viaggiato?</Card.Title>
                 <Card.Text>
                   Caps personali create: {datiProfilo.numCapsulePersonali}
                 </Card.Text>

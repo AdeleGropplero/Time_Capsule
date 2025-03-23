@@ -40,8 +40,8 @@ function CaroselloEventi() {
 
   return (
     <div className="slider-container">
-      <Container className="mb-3">
-        <h5 className="titoli-sezioni">Gli eventi del momento</h5>
+      <Container className="mt-3 mb-5">
+        <h5 className="titoli-sezioni text-center">Gli eventi del momento</h5>
         <Slider {...settings}>
           {items.map((item) => (
             <div key={item.id}>

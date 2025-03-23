@@ -4,9 +4,9 @@ function ChooseTypeEvent() {
   return (
     //Aggiungere effetti di hover
     <>
-      <Container>
+      <Container className="mb-3 d-flex flex-column align-items-center">
         <h5 className="titoli-sezioni">Crea un Evento</h5>
-        <Row>
+        <Row className="justify-content-center">
           <Col xs={6} md={4} lg={3}>
             <Card border="secondary" className="card-home">
               <Card.Header className="p-1 ps-3 header-pers">Locale</Card.Header>

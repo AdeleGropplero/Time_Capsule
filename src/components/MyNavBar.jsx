@@ -55,6 +55,20 @@ function MyNavBar() {
           >
             <NavDropdown.Item
               as={Link} // Usa Link per la navigazione
+              to={`/home`}
+              className="nav-text-personalized"
+            >
+              <img
+                src="/iconeGenerali/home.svg"
+                alt="profilo Icon"
+                style={{ width: 30, height: 26 }}
+                className="me-2 ps-1 "
+              />
+              Home
+            </NavDropdown.Item>
+
+            <NavDropdown.Item
+              as={Link} // Usa Link per la navigazione
               to={`/profilo/${user?.id}`}
               className="nav-text-personalized"
             >
