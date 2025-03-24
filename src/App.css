@@ -194,7 +194,7 @@ button.searchBtn:hover {
 .card-home {
   transition: background-color 0.3s ease, transform 0.3s ease; /* Effetto di transizione */
   overflow: hidden;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.303);
+  box-shadow: 0px 4px 10px rgba(40, 72, 94, 0.711);
   border-radius: 10px;
   border: #395060 1px solid;
 }
@@ -208,7 +208,7 @@ button.searchBtn:hover {
 
 /* CREATE CAPS ------------------------------------🟨🟨🟨----------------------------------------- */
 .form-capsula-div {
-  margin: -10px;
+  margin-inline: 60px;
   padding: 10px;
   background-color: #ffffffa3;
   box-shadow: 0px 1px 3px rgb(83, 111, 133);
@@ -216,7 +216,7 @@ button.searchBtn:hover {
 }
 
 .form-capsula-div h4 {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   color: #41596b;
 }
 
@@ -226,15 +226,15 @@ button.searchBtn:hover {
 }
 
 .form-capsula-div ul li {
-  font-size: 0.8rem;
+  font-size: 1rem;
   margin-bottom: 0.6rem;
 }
 
 .form-text label {
-  font-size: 0.9rem;
+  font-size: 1.2rem;
 }
 .form-text input {
-  font-size: 0.8rem;
+  font-size: 1.1rem;
 }
 
 .form-text input:focus {
@@ -243,11 +243,11 @@ button.searchBtn:hover {
 }
 
 .form-text input::placeholder {
-  font-size: 0.8rem;
+  font-size: 1.1rem;
 }
 
 .form-text textarea::placeholder {
-  font-size: 0.8rem;
+  font-size: 1.1rem;
 }
 
 .form-text textarea:focus {
@@ -256,11 +256,11 @@ button.searchBtn:hover {
 }
 
 .form-text textarea {
-  font-size: 0.8rem;
+  font-size: 1.1rem;
 }
 
 .form-text input[type="date"] {
-  font-size: 0.8rem;
+  font-size: 1.1rem;
 }
 
 .form-text input[type="date"]:focus {
@@ -270,7 +270,7 @@ button.searchBtn:hover {
 }
 
 .form-text input[type="file"] {
-  font-size: 0.8rem;
+  font-size: 1.1rem;
   display: none; /* nascondiamo il campo input e lo mascheriamo con un bottone */
 }
 
@@ -282,11 +282,15 @@ button.searchBtn:hover {
 }
 
 .disclaimer {
-  font-size: 0.6rem;
+  font-size: 0.9rem;
+}
+
+.bottone-crea span {
+  font-size: 1.1rem;
 }
 
 .bottone-file {
-  font-size: 0.8rem;
+  font-size: 1.1rem;
   background-color: #e0dfdf;
   color: rgb(44, 44, 44);
   border: #41596b;
@@ -337,13 +341,28 @@ button.searchBtn:hover {
 }
 
 label[for="custom-switch"] {
-  font-size: 0.8rem;
+  font-size: 1.1rem;
   color: #2b2b2b;
 }
 
 .cancel-btn {
   border-radius: 50%;
 }
+
+@media (max-width: 500px) {
+  .form-capsula-div h4 {
+    font-size: 1.3rem;
+    color: #41596b;
+  }
+}
+
+@media (max-width: 998px) {
+  .form-capsula-div {
+    margin: -10px;
+    margin-left: -20px;
+  }
+}
+
 /* ------------------------------------------------🟨🟨🟨----------------------------------------- */
 
 /* Login/Registrazione-----------------------------🟨🟨🟨----------------------------------------- */
@@ -353,8 +372,6 @@ label[for="custom-switch"] {
 /* ------------------------------------------------🟨🟨🟨----------------------------------------- */
 
 /* Le-mie-cap--------------------------------------🟪🟪🟪-------------------------------------------- */
-.slider-leMieCaps {
-}
 
 .laMiaCard {
   cursor: pointer;
@@ -409,6 +426,21 @@ label[for="custom-switch"] {
   opacity: 0.95;
   color: rgb(83, 111, 133, 1);
 }
+
+@media (max-width: 580px) {
+  .container-leMieCaps {
+    padding-inline: 35px;
+  }
+  /*  .slider-leMieCaps {
+    width: 85%;
+  } */
+}
+
+@media (min-width: 680px) {
+  .ti-prego-centrati {
+    max-width: 500px;
+  }
+}
 /* ------------------------------------------------🟪🟪🟪----------------------------------------- */
 /* PROFILO-----------------------------------------🟦🟦🟦----------------------------------------- */
 
@@ -416,6 +448,7 @@ label[for="custom-switch"] {
   background-color: rgba(65, 89, 107, 0.177);
   color: rgb(55, 77, 93);
   box-shadow: 1px 3px 5px rgb(65, 89, 107);
+  font-size: 1.1rem;
 }
 
 .avatar {

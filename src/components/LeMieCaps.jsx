@@ -51,7 +51,7 @@ function LeMieCaps() {
         {
           breakpoint: 1600,
           settings: {
-            slidesToShow: Math.min(listaCapsule.length, 5)
+            slidesToShow: Math.min(listaCapsule.length, 4)
           }
         },
         {
@@ -86,10 +86,10 @@ function LeMieCaps() {
     if (listaCapsule.length === 0) return null;
 
     return (
-      <div className="slider-leMieCaps">
+      <div className="slider-leMieCaps text-center">
         <Slider {...getSliderSettings(listaCapsule)}>
           {listaCapsule.map((cap) => (
-            <div key={cap.id}>
+            <div key={cap.id} className="ti-prego-centrati">
               <Card
                 className="laMiaCard m-3"
                 onClick={() => navigate(`/capsula/${cap.id}`)}
@@ -116,7 +116,7 @@ function LeMieCaps() {
   return (
     <>
       <MyNavBar />
-      <Container>
+      <Container className="container-leMieCaps pb-5 mb-5">
         {capPersonali.length > 0 && (
           <>
             <h4 className="mt-4 text-center">Capsule Personali</h4>

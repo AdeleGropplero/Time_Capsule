@@ -5,7 +5,7 @@ function ChooseTypeEvent() {
     //Aggiungere effetti di hover
     <>
       <Container className="mb-3 d-flex flex-column align-items-center">
-        <h5 className="titoli-sezioni">Crea un Evento</h5>
+        <h5 className="titoli-sezioni mt-2">Crea un Evento</h5>
         <Row className="justify-content-center">
           <Col xs={6} md={4} lg={3}>
             <Card className="card-home">

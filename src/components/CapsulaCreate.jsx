@@ -24,7 +24,6 @@ function CapsulaCreate() {
   });
 
   const [isLoading, setIsLoading] = useState(false); // Stato per gestire il caricamento
-  const [showModal, setShowModal] = useState(false);
   const [emailInput, setEmailInput] = useState("");
 
   // Funzione per gestire i cambiamenti nei campi di input
@@ -155,6 +154,13 @@ function CapsulaCreate() {
     return list.filter((file) => file.id !== fileId);
   };
 
+  const removeInvito = (email) => {
+    setFormData((prev) => ({
+      ...prev,
+      invitiMail: prev.invitiMail.filter((e) => e !== email) // Rimuovi solo l'email specifica
+    }));
+  };
+
   const handleSwitchChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -166,9 +172,9 @@ function CapsulaCreate() {
     <>
       <MyNavBar />
       {/* --------------------- */}
-      <Container className="mt-4 px-4">
+      <Container className="mt-4 px-4 ">
         <div className=" form-capsula-div mb-3">
-          <h4>Riempi la tua Capsula</h4>
+          <h4 className="text-center">Riempi la tua Capsula</h4>
           <Form onSubmit={handleSubmit}>
             {tipoCapsula === "GRUPPO" ? (
               <Container>
@@ -187,22 +193,10 @@ function CapsulaCreate() {
                     />
                     <Button
                       size="sm"
-                      className="m-2 px-1 pt-0  cancel-btn bottone-crea"
+                      className="bottone-crea "
                       onClick={() => addEmail()}
                     >
-                      <img src="/iconeGenerali/add.svg" alt="aggiungi mail" />
-                    </Button>
-                    <Button
-                      size="sm"
-                      className="pb-1 pt-0 px-1 cancel-btn bottone-crea"
-                      onClick={() => setShowModal(true)}
-                      aria-label="Vedi partecipanti"
-                    >
-                      <img
-                        src="/iconeGenerali/gruppo.svg"
-                        alt="vedi partecipanti"
-                        style={{ filter: "invert(1)" }} // Cambia il colore (bianco su sfondo scuro)
-                      />
+                      <span>Aggiungi</span>
                     </Button>
                   </div>
 
@@ -211,22 +205,26 @@ function CapsulaCreate() {
                     Inserisci un'email valida.
                   </Form.Control.Feedback>
                 </Form.Group>
-
-                {/* Modale */}
-                <Modal show={showModal} onHide={() => setShowModal(false)}>
-                  <Modal.Header closeButton>
-                    <Modal.Title>Persone aggiunte</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <ol>
-                      {formData.invitiMail.map((mail, index) => (
-                        <li key={index}>{mail}</li>
-                      ))}
-                    </ol>
-                  </Modal.Body>
-                </Modal>
+                {/* Lista inviti */}
+                {formData.invitiMail.length > 0 && (
+                  <ul>
+                    {formData.invitiMail.map((mail, index) => (
+                      <li key={index}>
+                        <Button
+                          size="sm"
+                          className="me-2 mb-1 cancel-btn bottone-crea"
+                          onClick={() => removeInvito(mail)}
+                        >
+                          X
+                        </Button>
+                        <span>{mail}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </Container>
             ) : null}
+
             {/* Titolo */}
             <Form.Group className="mb-3 form-text">
               <Form.Label>Titolo</Form.Label>

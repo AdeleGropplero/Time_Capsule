@@ -6,7 +6,7 @@ function ChooseCapsule() {
 
   return (
     <>
-      <Container className="mb-3 d-flex flex-column align-items-center">
+      <Container className="mb-3 mt-2 d-flex flex-column align-items-center">
         <h5 className="titoli-sezioni">Crea le tue Caps</h5>
 
         <Row className="justify-content-center">
