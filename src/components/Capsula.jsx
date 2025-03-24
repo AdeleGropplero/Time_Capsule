@@ -22,20 +22,25 @@ function Capsula() {
     title: "",
     message: "",
     newMedia: [], // Contiene SOLO i nuovi file caricati dall'utente
-    newTextFiles: []
+    newTextFiles: [],
+    pubblica: false
   });
+
+  const [isLoading, setIsLoading] = useState(false); // Stato per gestire il caricamento
 
   useEffect(() => {
     api
       .get(`/capsula/${id}`)
       .then((res) => {
         if (res.status === 200) {
+          console.log(res);
           setCapsula(res.data);
 
           setFormData((prev) => ({
             ...prev,
             title: res.data.title,
-            message: res.data.message
+            message: res.data.message,
+            pubblica: res.data.pubblica
           }));
         }
       })
@@ -117,14 +122,17 @@ function Capsula() {
   const handleSaveChanges = (e) => {
     e.preventDefault();
 
+    setIsLoading(true);
+
     const updateForm = new FormData();
     updateForm.append("title", formData.title);
     updateForm.append("message", formData.message);
+    updateForm.append("pubblica", formData.pubblica);
 
     // Aggiungo solo i nuovi file poichè la logica gi gestione dei file precedentemente caricati, l'ho gestita nel back.
-    formData.newMedia.forEach((file) => updateForm.append("media", file));
+    formData.newMedia.forEach((file) => updateForm.append("media", file.file));
     formData.newTextFiles.forEach((file) =>
-      updateForm.append("textFiles", file)
+      updateForm.append("textFiles", file.file)
     );
 
     api
@@ -151,6 +159,9 @@ function Capsula() {
       })
       .catch((error) => {
         console.error("Errore durante l'aggiornamento della capsula:", error);
+      })
+      .finally(() => {
+        setIsLoading(false); // Termina il caricamento
       });
   };
 
@@ -171,12 +182,33 @@ function Capsula() {
     });
   };
 
+  const handleSwitchChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      pubblica: e.target.checked // ✅ Aggiorna lo stato in base a `checked`
+    }));
+  };
+
   return (
     <>
       <MyNavBar />
-      <Container className="mt-4">
+      <Container className="mt-4 ">
         <Card className="shadow-sm p-2 mb-5">
-          <Card.Body>
+          <div className="d-flex justify-content-between">
+            {/* Bottone per eliminare la capsula */}
+            <Button
+              className="bottone-crea upped"
+              onClick={() => navigate(`/le-mie-caps/:id`)}
+            >
+              <img src="/iconeGenerali/arrowL.svg" alt="torna indietro" />
+            </Button>
+
+            {/* Bottone per eliminare la capsula */}
+            <Button className="bottone-crea upped" onClick={handleDelete}>
+              <img src="/iconeGenerali/trash.svg" alt="cestino" />
+            </Button>
+          </div>
+          <Card.Body className="titolo-su-cap">
             <Card.Title className="text-center">{capsula.title}</Card.Title>
             <Card.Text className="text-center">
               <strong>Data di apertura:</strong> {capsula.openDate}
@@ -189,7 +221,7 @@ function Capsula() {
               <>
                 <Card.Text className="text-center">
                   <strong>Messaggio:</strong>{" "}
-                  {capsula.message || "Nessun messaggio presente."}
+                  <p>{capsula.message || "Nessun messaggio presente."}</p>
                 </Card.Text>
                 {/* MEDIA: Immagini e Video */}
                 {capsula.media && capsula.media.length > 0 ? (
@@ -321,7 +353,30 @@ function Capsula() {
                         </Button>
                       </Form.Group>
 
-                      <Button className="bottone-crea" type="submit ">
+                      <Form.Check // prettier-ignore
+                        type="switch"
+                        name="pubblica"
+                        id="custom-switch"
+                        label="Pubblica"
+                        checked={formData.pubblica} // Associa il valore allo stato
+                        onChange={handleSwitchChange} // Gestisce il cambio di stato
+                      />
+
+                      <Button
+                        className="bottone-crea"
+                        type="submit"
+                        disabled={isLoading}
+                      >
+                        {isLoading ? (
+                          <Spinner
+                            as="span"
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                            className="me-2"
+                          />
+                        ) : null}
                         Salva Modifiche
                       </Button>
                     </Form>

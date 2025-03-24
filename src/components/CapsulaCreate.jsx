@@ -13,7 +13,6 @@ function CapsulaCreate() {
   const [formData, setFormData] = useState({
     title: "",
     openDate: "",
-    email: "",
     media: [],
     textFiles: [], // Nuovo campo per i file di testo
     message: "", // Nuovo campo per il testo scritto manualmente
@@ -119,7 +118,6 @@ function CapsulaCreate() {
           setFormData({
             title: "",
             openDate: "",
-            email: "",
             media: [],
             textFiles: [],
             message: "",
@@ -246,24 +244,6 @@ function CapsulaCreate() {
                 name="openDate"
                 value={formData.openDate}
                 onChange={handleChange}
-                required
-              />
-            </Form.Group>
-
-            {/* Email */}
-            <Form.Group className="mb-3 form-text">
-              <Form.Label>
-                Email{" "}
-                <span className="disclaimer">
-                  (Ti avvisiamo noi quando potrai aprire la tua capsula)
-                </span>
-              </Form.Label>
-              <Form.Control
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="Inserisci la tua email"
                 required
               />
             </Form.Group>

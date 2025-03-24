@@ -47,7 +47,8 @@ function Login() {
             dispatch(
               setUser({
                 fullName: data.fullName,
-                id: data.id
+                id: data.id,
+                email: data.email
               })
             );
           } else {
