@@ -1,10 +1,16 @@
-import { useState } from "react";
-import { Document, Page } from "react-pdf";
+import { useState, useEffect } from "react";
+import { Document, Page, pdfjs } from "react-pdf";
 import { Spinner, Button } from "react-bootstrap";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
 import "react-pdf/dist/esm/Page/TextLayer.css";
 
-function PdfViewer({ url }) {
+// Configurazione del worker
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  "pdfjs-dist/build/pdf.worker.min.js",
+  import.meta.url
+).toString();
+
+export default function PdfViewer({ url }) {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [loading, setLoading] = useState(true);
@@ -22,34 +28,42 @@ function PdfViewer({ url }) {
           <span className="ms-2">Caricamento PDF...</span>
         </div>
       )}
-      <Document
-        file={url}
-        onLoadSuccess={onDocumentLoadSuccess}
-        loading={<div>Caricamento...</div>}
-      >
-        <Page pageNumber={pageNumber} width={600} />
-      </Document>
-      <div className="d-flex justify-content-between mt-2">
-        <Button
-          size="sm"
-          disabled={pageNumber <= 1}
-          onClick={() => setPageNumber((p) => p - 1)}
+      <div className="d-flex justify-content-center">
+        <Document
+          file={url}
+          onLoadSuccess={onDocumentLoadSuccess}
+          loading={<div>Caricamento...</div>}
         >
-          Precedente
-        </Button>
-        <span>
-          Pagina {pageNumber} di {numPages}
-        </span>
-        <Button
-          size="sm"
-          disabled={pageNumber >= numPages}
-          onClick={() => setPageNumber((p) => p + 1)}
-        >
-          Successiva
-        </Button>
+          <Page
+            pageNumber={pageNumber}
+            width={Math.min(window.innerWidth - 40, 800)}
+            renderTextLayer={false}
+          />
+        </Document>
       </div>
+      {numPages && (
+        <div className="d-flex justify-content-between align-items-center mt-3">
+          <Button
+            variant="outline-primary"
+            size="sm"
+            disabled={pageNumber <= 1}
+            onClick={() => setPageNumber((p) => p - 1)}
+          >
+            Precedente
+          </Button>
+          <span>
+            Pagina {pageNumber} di {numPages}
+          </span>
+          <Button
+            variant="outline-primary"
+            size="sm"
+            disabled={pageNumber >= numPages}
+            onClick={() => setPageNumber((p) => p + 1)}
+          >
+            Successiva
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
-
-export default PdfViewer;
