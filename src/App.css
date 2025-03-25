@@ -525,10 +525,30 @@ label[for="custom-switch"] {
 
 /* CAPSULA ----------------------------------------🟧🟧🟧------------------------------------------- */
 .titolo-su-cap {
-  margin-top: -30px;
+  margin-top: -10px;
 }
 
 .upped {
   z-index: 10;
+}
+
+.carousel-indicators [data-bs-target] {
+  background-color: #395060;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  background-color: #395060;
+}
+
+/* Stile quando l'indicatore è attivo */
+.carousel-indicators button.active {
+  background-color: #007bff; /* Colore quando attivo */
+  transform: scale(1.2);
+}
+
+/* Effetto hover */
+.carousel-indicators button:not(.active):hover {
+  background-color: #8bbee2;
 }
 /* ------------------------------------------------🟧🟧🟧------------------------------------------- */

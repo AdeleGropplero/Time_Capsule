@@ -11,6 +11,7 @@ import {
   Spinner
 } from "react-bootstrap";
 import MyNavBar from "./MyNavBar";
+import { Carousel } from "react-bootstrap";
 
 function Capsula() {
   const { id } = useParams();
@@ -220,53 +221,91 @@ function Capsula() {
               //----------------------------------------------------------------
               <>
                 <Card.Text className="text-center">
-                  <strong>Messaggio:</strong>{" "}
-                  <p>{capsula.message || "Nessun messaggio presente."}</p>
+                  <strong>Messaggio:</strong>
                 </Card.Text>
-                {/* MEDIA: Immagini e Video */}
-                {capsula.media && capsula.media.length > 0 ? (
+                <Card.Text className="mx-4">
+                  {capsula.message || "Nessun messaggio presente."}
+                </Card.Text>
+                {capsula.media && capsula.media.length > 0 && (
                   <>
-                    <h5 className="mt-4">Media</h5>
-                    <Row className="g-3">
+                    <div className="d-flex justify-content-between mt-4 mb-5">
+                      <h5 className="">Media</h5>
+                      {/*                       <Button
+                        className="bottone-crea"
+                        type="button"
+                        disabled={isLoading}
+                      >
+                        {isLoading ? (
+                          <Spinner
+                            as="span"
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                            className="me-2"
+                          />
+                        ) : null}
+                        Scarica Media
+                      </Button> */}
+                    </div>
+
+                    <Carousel
+                      className="mb-4"
+                      style={{
+                        height: "500px"
+                      }}
+                    >
                       {capsula.media.map((file, index) => (
-                        <Col key={index} xs={6} sm={4} md={3}>
-                          {typeof file.url === "string" &&
-                          file.url.match(/\.(mp4|webm)$/) ? (
-                            <video controls width="100%">
-                              <source src={file.url} type="video/mp4" />
-                              Il tuo browser non supporta il video.
-                            </video>
+                        <Carousel.Item key={index}>
+                          {file.url.match(/\.(mp4|webm|mov)$/) ? (
+                            <div className="ratio ratio-16x9">
+                              <video controls className="w-100">
+                                <source
+                                  src={file.url}
+                                  type={`video/${file.url.split(".").pop()}`}
+                                />
+                                Il tuo browser non supporta il video.
+                              </video>
+                            </div>
                           ) : (
-                            typeof file.url === "string" && (
+                            <div className="d-flex justify-content-center">
                               <img
                                 src={file.url}
-                                alt="Media capsula"
+                                alt={`Media ${index + 1}`}
                                 className="img-fluid rounded shadow"
+                                style={{
+                                  maxHeight: "500px",
+                                  objectFit: "contain"
+                                }}
                               />
-                            )
+                            </div>
                           )}
-                        </Col>
+                        </Carousel.Item>
                       ))}
-                    </Row>
+                    </Carousel>
                   </>
-                ) : null}
+                )}
+
                 {/* FILE DI TESTO */}
                 {capsula.textFiles && capsula.textFiles.length > 0 ? (
                   <>
                     <h5 className="mt-4">File di Testo</h5>
                     <ul>
-                      {capsula.textFiles.map((file, index) => (
-                        <li key={index}>
-                          <a
-                            href={file.url}
-                            download
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          >
-                            Scarica {file.url.split("/").pop()}
-                          </a>
-                        </li>
-                      ))}
+                      {capsula.textFiles.map((file, index) => {
+                        const fileName = file.url.split("/").pop(); // Ottiene il nome completo del file
+                        return (
+                          <li key={index}>
+                            <a
+                              href={file.url}
+                              download={fileName} // Specifica il nome del file da scaricare
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              Scarica {fileName}
+                            </a>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </>
                 ) : null}
@@ -280,25 +319,12 @@ function Capsula() {
                   🔒 La capsula non può ancora essere aperta. <br />
                   Se vuoi aggiungi ricordi!.
                 </p>
-                <div className="d-flex justify-content-between mt-4">
-                  {/* Bottone per eliminare la capsula */}
-                  <Button
-                    className="bottone-crea"
-                    onClick={() => navigate(`/le-mie-caps/:id`)}
-                  >
-                    <img src="/iconeGenerali/arrowL.svg" alt="torna indietro" />
-                  </Button>
-
+                <div className="d-flex justify-content-center mt-4">
                   <Button
                     className="bottone-crea"
                     onClick={() => setEditMode(!editMode)}
                   >
                     {editMode ? "Annulla Modifica" : "Modifica Capsula"}
-                  </Button>
-
-                  {/* Bottone per eliminare la capsula */}
-                  <Button className="bottone-crea" onClick={handleDelete}>
-                    <img src="/iconeGenerali/trash.svg" alt="cestino" />
                   </Button>
                 </div>
                 {editMode && (
@@ -361,24 +387,25 @@ function Capsula() {
                         checked={formData.pubblica} // Associa il valore allo stato
                         onChange={handleSwitchChange} // Gestisce il cambio di stato
                       />
-
-                      <Button
-                        className="bottone-crea"
-                        type="submit"
-                        disabled={isLoading}
-                      >
-                        {isLoading ? (
-                          <Spinner
-                            as="span"
-                            animation="border"
-                            size="sm"
-                            role="status"
-                            aria-hidden="true"
-                            className="me-2"
-                          />
-                        ) : null}
-                        Salva Modifiche
-                      </Button>
+                      <div className="d-flex justify-content-center mt-4">
+                        <Button
+                          className="bottone-crea"
+                          type="submit"
+                          disabled={isLoading}
+                        >
+                          {isLoading ? (
+                            <Spinner
+                              as="span"
+                              animation="border"
+                              size="sm"
+                              role="status"
+                              aria-hidden="true"
+                              className="me-2"
+                            />
+                          ) : null}
+                          Salva Modifiche
+                        </Button>
+                      </div>
                     </Form>
                     {formData.newMedia.length > 0 ||
                     formData.newTextFiles.length > 0 ? (
@@ -444,3 +471,31 @@ function Capsula() {
 }
 
 export default Capsula;
+
+/*  { MEDIA: Immagini e Video }
+                {capsula.media && capsula.media.length > 0 ? (
+                  <>
+                    <h5 className="mt-4">Media</h5>
+                    <Row className="g-3">
+                      {capsula.media.map((file, index) => (
+                        <Col key={index} xs={6} sm={4} md={3}>
+                          {typeof file.url === "string" &&
+                          file.url.match(/\.(mp4|webm)$/) ? (
+                            <video controls width="100%">
+                              <source src={file.url} type="video/mp4" />
+                              Il tuo browser non supporta il video.
+                            </video>
+                          ) : (
+                            typeof file.url === "string" && (
+                              <img
+                                src={file.url}
+                                alt="Media capsula"
+                                className="img-fluid rounded shadow"
+                              />
+                            )
+                          )}
+                        </Col>
+                      ))}
+                    </Row>
+                  </>
+                ) : null}{" "}*/
