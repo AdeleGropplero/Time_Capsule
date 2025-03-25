@@ -295,14 +295,16 @@ function Capsula() {
                         const fileName = file.url.split("/").pop(); // Ottiene il nome completo del file
                         return (
                           <li key={index}>
-                            <a
-                              href={file.url}
-                              download={fileName} // Specifica il nome del file da scaricare
-                              target="_blank"
-                              rel="noopener noreferrer"
-                            >
-                              Scarica {fileName}
-                            </a>
+                            <div className="ms-2 mb-2">
+                              <a
+                                href={file.url}
+                                download={fileName} // Specifica il nome del file da scaricare
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                {fileName}
+                              </a>
+                            </div>
                           </li>
                         );
                       })}
