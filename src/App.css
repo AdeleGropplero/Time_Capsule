@@ -493,6 +493,21 @@ label[for="custom-switch"] {
   padding-right: 20px; /* Aggiungi padding a destra */
 }
 
+.comingSoon {
+  /* background-color: rgba(65, 89, 107, 0.177); */
+  opacity: 0.7;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+  border-top: 2px rgb(65, 89, 107) dashed;
+  border-bottom: 2px rgb(65, 89, 107) dashed;
+  padding: 0px;
+}
+
+.comingSoon p {
+  border-bottom: 2px rgb(65, 89, 107) dashed;
+  padding-block: 5px;
+}
+
 /* Gestisci larghezze per dispositivi diversi */
 @media (max-width: 1200px) {
   .container-home {

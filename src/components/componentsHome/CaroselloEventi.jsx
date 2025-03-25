@@ -78,7 +78,7 @@ function CaroselloEventi() {
 
   return (
     <div className="slider-container ">
-      <Container className="mt-4 mb-5 ">
+      <Container className="mt-4 mb-3 ">
         <h5 className="titoli-sezioni text-center">Gli eventi del momento</h5>
         <Slider {...settings} className="fade-carosello ">
           {items.map((item) => (
