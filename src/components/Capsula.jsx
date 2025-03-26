@@ -46,7 +46,7 @@ function Capsula() {
         }
       })
       .catch((error) =>
-        console.error("Errore nel recupero della capsula:", error)
+        console.error("Errore nel recupero della capsula: ", error)
       )
       .finally(() => setLoading(false));
   }, [id]);
