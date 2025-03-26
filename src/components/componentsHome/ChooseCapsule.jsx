@@ -30,7 +30,7 @@ function ChooseCapsule() {
               </Card.Header>
               <Card.Body className="p-0">
                 <img
-                  src="/immagini_caps/capsula_3.jpeg"
+                  src="/imgCaps/capsula_3.jpeg"
                   alt="capsula 3"
                   className="img-fluid"
                 />
@@ -58,7 +58,7 @@ function ChooseCapsule() {
               </Card.Header>
               <Card.Body className="p-0">
                 <img
-                  src="/immagini_caps/capsula_20.jpeg"
+                  src="/imgCaps/capsula_20.jpeg"
                   alt="capsula 20"
                   className="img-fluid"
                 />

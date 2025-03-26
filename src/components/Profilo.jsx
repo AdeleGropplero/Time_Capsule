@@ -98,7 +98,9 @@ function Profilo() {
               <div className="d-flex flex-column align-items-center justify-content-center ms-2 mt-3 mb-3">
                 <div className="avatar">
                   <img
-                    src="/prova_profilo.jpeg"
+                    src={
+                      immagini[Math.floor(Math.random() * immagini.length)].url
+                    }
                     alt="immagine profilo"
                     className="img-fluid"
                   />
