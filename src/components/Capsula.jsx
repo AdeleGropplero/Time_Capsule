@@ -230,23 +230,6 @@ function Capsula() {
                   <>
                     <div className="d-flex justify-content-between mt-4 mb-5">
                       <h5 className="">Media</h5>
-                      {/*                       <Button
-                        className="bottone-crea"
-                        type="button"
-                        disabled={isLoading}
-                      >
-                        {isLoading ? (
-                          <Spinner
-                            as="span"
-                            animation="border"
-                            size="sm"
-                            role="status"
-                            aria-hidden="true"
-                            className="me-2"
-                          />
-                        ) : null}
-                        Scarica Media
-                      </Button> */}
                     </div>
 
                     <Carousel

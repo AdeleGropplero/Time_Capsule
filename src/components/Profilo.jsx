@@ -12,7 +12,8 @@ function Profilo() {
   const [showModal, setShowModal] = useState(false);
   const [modificaProfilo, setModificaProfilo] = useState({
     fullName: "",
-    email: ""
+    email: "",
+    avatar: null
   });
   const [immagini, setImmagini] = useState([]);
 
@@ -33,7 +34,8 @@ function Profilo() {
     if (datiProfilo) {
       setModificaProfilo({
         fullName: datiProfilo.fullName,
-        email: datiProfilo.email
+        email: datiProfilo.email,
+        avatar: datiProfilo.avatar
       });
     }
   }, [datiProfilo]);
@@ -72,8 +74,19 @@ function Profilo() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const formData =
+      new FormData(); /* Utilizzo FormData per inviare il file insieme ai dati del profilo (nome, email) quando l'utente invia il modulo. Questo oggetto è particolarmente utile quando si inviano dati misti (ad esempio testo e file) a un server.*/
+    formData.append("fullName", modificaProfilo.fullName);
+    formData.append("email", modificaProfilo.email);
+
+    if (modificaProfilo.avatar) {
+      formData.append("avatar", modificaProfilo.avatar); // Aggiungi l'immagine come file
+    }
+
     api
-      .patch(`/profilo/${user.id}`, modificaProfilo)
+      .patch(`/profilo/${user.id}`, formData, {
+        headers: { "Content-Type": "multipart/form-data" }
+      })
       .then((res) => {
         if (res.status === 200) {
           setDatiProfilo(res.data);
@@ -88,6 +101,29 @@ function Profilo() {
       });
   };
 
+  const handleFileUpload = (e) => {
+    const selectedFile = e.target.files[0];
+
+    if (selectedFile) {
+      const fileData = {
+        id: crypto.randomUUID(), // Genera un ID univoco per il file
+        name: selectedFile.name, // Nome originale del file
+        type: selectedFile.type, // Tipo MIME del file (es. "image/png", "image/jpeg")
+        file: selectedFile // Mantiene il file originale
+      };
+
+      // Crea un URL temporaneo per l'immagine (utile per la visualizzazione)
+      const imageUrl = URL.createObjectURL(selectedFile);
+
+      // Imposta il file come avatar e l'URL temporaneo per la visualizzazione
+      setModificaProfilo((prev) => ({
+        ...prev,
+        avatar: fileData.file, // Salva il file
+        avatarUrl: imageUrl // Salva l'URL temporaneo per la visualizzazione
+      }));
+    }
+  };
+
   return (
     <>
       <MyNavBar />
@@ -99,10 +135,18 @@ function Profilo() {
                 <div className="avatar">
                   <img
                     src={
-                      immagini[Math.floor(Math.random() * immagini.length)].url
+                      modificaProfilo.avatar
+                        ? modificaProfilo.avatar
+                        : immagini[Math.floor(Math.random() * immagini.length)]
+                            .url
                     }
                     alt="immagine profilo"
                     className="img-fluid"
+                    style={{
+                      objectFit: "cover", // O 'contain' a seconda del comportamento desiderato
+                      width: "100%",
+                      height: "100%"
+                    }}
                   />
                 </div>
                 <div className="mt-2 mx-2 name-profilo">
@@ -175,6 +219,38 @@ function Profilo() {
                 required
               />
             </Form.Group>
+
+            <Form.Group className="mb-3 mt-2 form-text">
+              <Form.Label className="modifica-profilo-img">
+                Cambia immagine profilo
+              </Form.Label>
+              <Form.Control
+                type="file"
+                accept="image/*" // Accetta immagini
+                onChange={handleFileUpload}
+                id="fileInput" //questo mi serve per recuperare l'elemento con il getElementbyId
+              />
+              {/* Anteprima dell'immagine, se disponibile */}
+              {modificaProfilo.avatarUrl && (
+                <div className="mt-2">
+                  <img
+                    src={modificaProfilo.avatarUrl}
+                    alt="Anteprima"
+                    className="img-fluid mb-3"
+                    style={{ maxWidth: "200px" }} // Imposta una dimensione massima per l'anteprima
+                  />
+                </div>
+              )}
+
+              {/* Bottone personalizzato */}
+              <Button
+                className="bottone-file"
+                onClick={() => document.getElementById("fileInput").click()} //è un modo per "simulare" un click sull'input type="file" nascosto, quando l'utente preme il bottone.
+              >
+                📁 Seleziona File
+              </Button>
+            </Form.Group>
+
             <Button type="submit" className="mt-3 bottone-crea">
               Salva Modifiche
             </Button>
