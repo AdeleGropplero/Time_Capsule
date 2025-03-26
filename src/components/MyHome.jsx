@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import CaroselloEventi from "./componentsHome/CaroselloEventi";
 import ChooseCapsule from "./componentsHome/chooseCapsule";
-import ChooseTypeEvent from "./componentsHome/ChooseTypeEvent";
 import MySearchBar from "./componentsHome/mySearchBar";
 import MyNavBar from "./MyNavBar";
+import ComingSoon from "./componentsHome/ComingSoon";
 
 function MyHome() {
   const navigate = useNavigate(); // Aggiungi il navigate hook
@@ -19,12 +19,11 @@ function MyHome() {
   return (
     <>
       <MyNavBar />
-      <Container fluid className="justify-content-center container-home">
+      <Container fluid className="justify-content-center container-home mt-4">
         <MySearchBar />
         <ChooseCapsule />
-        <ChooseTypeEvent />
-        <CaroselloEventi />
       </Container>
+      <ComingSoon />
     </>
   );
 }
