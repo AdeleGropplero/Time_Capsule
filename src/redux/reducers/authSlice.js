@@ -11,11 +11,11 @@ const authSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       // Imposto i dati dell'utente
-      console.log("setUser payload ricevuto:", action.payload);
+      /* console.log("setUser payload ricevuto:", action.payload); */
       state.user = action.payload;
     },
     setToken: (state, action) => {
-      console.log("setToken payload ricevuto:", action.payload);
+      /* console.log("setToken payload ricevuto:", action.payload); */
       // Imposto il token
       state.token = action.payload;
     },

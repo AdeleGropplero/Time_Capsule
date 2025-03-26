@@ -1,4 +1,4 @@
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Card, Container } from "react-bootstrap";
 import MyNavBar from "./MyNavBar";
 import api from "../api/api"; // Importo Axios configurato
 import { useEffect, useState } from "react";
@@ -10,6 +10,7 @@ function LeMieCaps() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
   const [capsule, setCapsule] = useState([]);
+  const [immaginiCaps, setImmaginiCaps] = useState([]);
 
   useEffect(() => {
     api
@@ -17,13 +18,26 @@ function LeMieCaps() {
       .then((res) => {
         if (res.status === 200) {
           setCapsule(res.data);
-          console.log(res.data);
         }
       })
       .catch((error) =>
         console.error("Errore nella fetch delle capsule: ", error)
       );
   }, [user.id]);
+
+  useEffect(() => {
+    api
+      .get("/immagini_caps")
+      .then((res) => {
+        if (res.status === 200) {
+          console.log(res.data);
+          setImmaginiCaps(res.data);
+        }
+      })
+      .catch((error) =>
+        console.error("Errore nella fetch delle immagini: ", error)
+      );
+  }, []);
 
   // Filtro le capsule in base alla tipologia
   const capPersonali = capsule.filter((cap) => cap.capsula === "PERSONALE");
@@ -96,12 +110,13 @@ function LeMieCaps() {
               >
                 <Card.Body>
                   <img
-                    src={`/immagini_caps/capsula_${
-                      Math.floor(Math.random() * 20) + 1
-                    }.jpeg`}
+                    src={immaginiCaps[Math.floor(Math.random() * 19)].url} // Usa l'URL dell'immagine casuale
                     alt="img capsula"
                     className="img-fluid mb-2"
                   />
+                  {console.log(
+                    immaginiCaps[Math.floor(Math.random() * 19)].url
+                  )}
                   <Card.Title>{cap.title}</Card.Title>
                   <Card.Text>Si apre il: {cap.openDate}</Card.Text>
                 </Card.Body>

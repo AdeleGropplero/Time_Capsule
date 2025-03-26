@@ -8,13 +8,14 @@ import { Form } from "react-bootstrap";
 
 function Profilo() {
   const user = JSON.parse(localStorage.getItem("user"));
-  console.log(user);
   const [datiProfilo, setDatiProfilo] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [modificaProfilo, setModificaProfilo] = useState({
     fullName: "",
     email: ""
   });
+  const [immagini, setImmagini] = useState([]);
+
   useEffect(() => {
     api
       .get(`/profilo/${user.id}`)
@@ -36,6 +37,22 @@ function Profilo() {
       });
     }
   }, [datiProfilo]);
+
+  useEffect(() => {
+    api
+      .get("/immagini_caps")
+      .then((res) => {
+        if (res.status === 200) {
+          /* console.log(res.data); */
+          const immaginiProfilo = res.data.slice(19); //Siccome nella tabella immagini ci sono sia profili che capsule mi prendo le img di interesse ovvero da 20 a 43
+          setImmagini(immaginiProfilo);
+          /* console.log("immagini profilo", immaginiProfilo); */
+        }
+      })
+      .catch((error) =>
+        console.error("Errore nella fetch delle immagini: ", error)
+      );
+  }, []);
 
   if (!datiProfilo) {
     return (

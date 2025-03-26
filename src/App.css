@@ -449,6 +449,7 @@ label[for="custom-switch"] {
   color: rgb(55, 77, 93);
   box-shadow: 1px 3px 5px rgb(65, 89, 107);
   font-size: 1.1rem;
+  border: none;
 }
 
 .avatar {
