@@ -366,9 +366,28 @@ label[for="custom-switch"] {
 /* ------------------------------------------------🟨🟨🟨----------------------------------------- */
 
 /* Login/Registrazione-----------------------------🟨🟨🟨----------------------------------------- */
-.go-register {
-  font-size: 0.7rem;
+.login-registrazione {
 }
+
+@media (max-width: 1200px) {
+  .login-registrazione {
+    max-width: 500px;
+    border: #374d5d00 2px solid;
+    border-radius: 15px;
+    background-color: #374d5d56;
+  }
+}
+
+@media (max-width: 998px) {
+  .login-registrazione {
+  }
+}
+
+@media (max-width: 500px) {
+  .login-registrazione {
+  }
+}
+
 /* ------------------------------------------------🟨🟨🟨----------------------------------------- */
 
 /* Le-mie-cap--------------------------------------🟪🟪🟪-------------------------------------------- */

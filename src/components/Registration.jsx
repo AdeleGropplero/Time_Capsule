@@ -60,9 +60,10 @@ function Registration() {
 
   return (
     <>
-      <Container className="mt-4 px-4">
-        <div className=" form-capsula-div mb-3">
-          <h4>Registrati</h4>
+      <Container className="mt-4 px-4 login-registrazione">
+        <div className=" mb-3">
+          {/* form-capsula-div */}
+          <h4 className="pt-2 text-center">Registrati</h4>
           <Form onSubmit={handleSubmit}>
             {/* Nome */}
             <Form.Group className="mb-3 form-text">
