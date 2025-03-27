@@ -8,7 +8,8 @@ import {
   Row,
   Button,
   Form,
-  Spinner
+  Spinner,
+  Modal
 } from "react-bootstrap";
 import MyNavBar from "./MyNavBar";
 import { Carousel } from "react-bootstrap";
@@ -24,17 +25,27 @@ function Capsula() {
     message: "",
     newMedia: [], // Contiene SOLO i nuovi file caricati dall'utente
     newTextFiles: [],
-    pubblica: false
+    pubblica: false,
+    addMail: []
   });
 
   const [isLoading, setIsLoading] = useState(false); // Stato per gestire il caricamento
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  /*   const [showAdd, setShowAdd] = useState(false);
+  const handleCloseAdd = () => setShowAdd(false);
+  const handleShowAdd = () => setShowAdd(true); */ //implementazione futura
+
+  const [emailInput, setEmailInput] = useState("");
 
   useEffect(() => {
     api
       .get(`/capsula/${id}`)
       .then((res) => {
         if (res.status === 200) {
-          console.log(res);
+          console.log(res.data);
           setCapsula(res.data);
 
           setFormData((prev) => ({
@@ -135,6 +146,7 @@ function Capsula() {
     formData.newTextFiles.forEach((file) =>
       updateForm.append("textFiles", file.file)
     );
+    formData.addMail.forEach((email) => updateForm.append("addMail", email));
 
     api
       .put(`/capsula/${id}/update`, updateForm)
@@ -147,7 +159,8 @@ function Capsula() {
           setFormData((prev) => ({
             ...prev,
             newMedia: [],
-            newTextFiles: []
+            newTextFiles: [],
+            addMail: []
           }));
 
           // Ricarico la capsula per mostrare i nuovi file salvati
@@ -183,6 +196,7 @@ function Capsula() {
     });
   };
 
+  /* AGGIUNGI EMAIL */
   const handleSwitchChange = (e) => {
     setFormData((prev) => ({
       ...prev,
@@ -190,19 +204,67 @@ function Capsula() {
     }));
   };
 
+  // Funzione per gestire i cambiamenti nei campi di input
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "addMail") {
+      setEmailInput(value); // Aggiorna il valore della mail
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const addEmail = () => {
+    // Controllo se l'email è valida
+    if (!emailInput.trim() || !emailInput.includes("@")) {
+      alert("Inserisci un'email valida.");
+      return;
+    }
+
+    if (formData.addMail.includes(emailInput)) {
+      alert("Questa mail è già stata aggiunta.");
+      return;
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      addMail: [...prev.addMail, emailInput]
+    }));
+
+    setEmailInput("");
+  };
+
+  const removeInvito = (email) => {
+    setFormData((prev) => ({
+      ...prev,
+      addMail: prev.addMail.filter((e) => e !== email) // Rimuovi solo l'email specifica
+    }));
+  };
+
   return (
     <>
       <MyNavBar />
       <Container className="mt-4 ">
-        <Card className="shadow-sm p-2 mb-5">
+        <Card className="shadow-sm p-2 mb-5 card-capsula">
           <div className="d-flex justify-content-between">
-            {/* Bottone per eliminare la capsula */}
+            {/* Bottone per tornare indietro*/}
             <Button
               className="bottone-crea upped"
               onClick={() => navigate(`/le-mie-caps/:id`)}
             >
               <img src="/iconeGenerali/arrowL.svg" alt="torna indietro" />
             </Button>
+
+            {/* Bottone mostra partecipanti*/}
+            {capsula.invitati.length > 1 && (
+              <Button className="bottone-crea upped" onClick={handleShow}>
+                <img
+                  className="white"
+                  src="/iconeGenerali/gruppo.svg"
+                  alt="torna indietro"
+                />
+              </Button>
+            )}
 
             {/* Bottone per eliminare la capsula */}
             <Button className="bottone-crea upped" onClick={handleDelete}>
@@ -214,6 +276,24 @@ function Capsula() {
             <Card.Text className="text-center">
               <strong>Data di apertura:</strong> {capsula.openDate}
             </Card.Text>
+
+            <Modal show={show} onHide={handleClose}>
+              <Modal.Header closeButton>
+                Partecipanti{" "}
+                {/*  <Button className="ms-3 bottone-crea" onClick={handleShowAdd}>
+                  <img src="/iconeGenerali/add.svg" alt="aggiungi" />
+                </Button> */}
+              </Modal.Header>
+              <Modal.Body>
+                <ul>
+                  {capsula.invitati.map((mail, index) => (
+                    <li key={index}>
+                      <span>{mail}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Modal.Body>
+            </Modal>
 
             {capsulaAperta ? (
               //----------------------------------------------------------------
@@ -315,6 +395,55 @@ function Capsula() {
                 {editMode && (
                   <>
                     <Form className="mt-4" onSubmit={handleSaveChanges}>
+                      {capsula.invitati.length > 1 ? (
+                        <Container>
+                          <Form.Group className="mb-3 form-text">
+                            <Form.Label>
+                              Inserisci le mail di chi vuoi invitare
+                            </Form.Label>
+                            <div className="d-flex align-items-center">
+                              {/* Campo di input email */}
+                              <Form.Control
+                                type="email"
+                                name="addMail"
+                                value={emailInput}
+                                onChange={handleChange}
+                                placeholder="Inserisci un'email"
+                              />
+                              <Button
+                                size="sm"
+                                className="bottone-crea "
+                                onClick={() => addEmail()}
+                              >
+                                <span>Aggiungi</span>
+                              </Button>
+                            </div>
+
+                            {/* Messaggio di errore per email non valida */}
+                            <Form.Control.Feedback type="invalid">
+                              Inserisci un'email valida.
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                          {/* Lista inviti */}
+                          {formData.addMail.length > 0 && (
+                            <ul>
+                              {formData.addMail.map((mail, index) => (
+                                <li key={index}>
+                                  <Button
+                                    size="sm"
+                                    className="me-2 mb-1 cancel-btn bottone-crea"
+                                    onClick={() => removeInvito(mail)}
+                                  >
+                                    X
+                                  </Button>
+                                  <span>{mail}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          )}
+                        </Container>
+                      ) : null}
+
                       {/* Modifica Titolo */}
                       <Form.Group className="mb-3">
                         <Form.Label>Titolo</Form.Label>
