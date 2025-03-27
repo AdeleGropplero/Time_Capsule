@@ -8,22 +8,22 @@ function CaroselloEventi() {
     {
       id: 1,
       alt: "eurovision event",
-      content: "immagini_evento/eurovision.jpeg"
+      content: "immagini_evento/eurovision.jpg"
     },
-    { id: 2, alt: "mondiali event", content: "immagini_evento/mondiali.jpeg" },
-    { id: 3, alt: "newYear event", content: "immagini_evento/newYear.jpeg" },
+    { id: 2, alt: "mondiali event", content: "immagini_evento/mondiali.jpg" },
+    { id: 3, alt: "newYear event", content: "immagini_evento/capodanno.jpg" },
     {
       id: 4,
       alt: "olimpiadi event",
       content: "immagini_evento/olimpiadi.jpg"
     },
-    { id: 5, alt: "oscars event", content: "immagini_evento/oscars.jpeg" },
+    { id: 5, alt: "oscars event", content: "immagini_evento/oscar.jpg" },
     {
       id: 6,
       alt: "superbowl event",
-      content: "immagini_evento/superbowl.jpeg"
+      content: "immagini_evento/super-bowl.jpg"
     },
-    { id: 7, alt: "tennis event", content: "immagini_evento/tennis.jpeg" }
+    { id: 7, alt: "tennis event", content: "immagini_evento/grand-slam.jpg" }
   ];
 
   const settings = {

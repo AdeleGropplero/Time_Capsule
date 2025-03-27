@@ -33,6 +33,7 @@ function Capsula() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  /*  */
 
   /*   const [showAdd, setShowAdd] = useState(false);
   const handleCloseAdd = () => setShowAdd(false);
