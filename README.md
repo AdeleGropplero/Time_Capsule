@@ -59,6 +59,8 @@ Se vuoi dare più valore ai tuoi ricordi, preparati a scrivere il tuo futuro con
 📌 **Nota**: Questo progetto è in fase di sviluppo. Contributi e feedback sono benvenuti!
 
 ---
+---
+---
 
 # Time Capsule Online (🇬🇧 English Version)🌟
 
