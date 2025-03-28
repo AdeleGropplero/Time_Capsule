@@ -57,3 +57,93 @@ Se vuoi dare più valore ai tuoi ricordi, preparati a scrivere il tuo futuro con
 ---
 
 📌 **Nota**: Questo progetto è in fase di sviluppo. Contributi e feedback sono benvenuti!
+
+---
+
+# Time Capsule Online (🇬🇧 English Version)🌟
+
+💙 **[Backend Repository](https://github.com/AdeleGropplero/TimeCapsule-Back-)** 💙  
+
+**Time Capsule Online** is an innovative app that lets you create virtual time capsules to be unlocked on a future date. Preserve memories, messages, photos, and videos—accessible only when the time is right. Perfect for anniversaries, letters to your future self, or heartfelt surprises for loved ones.  
+
+---
+
+## ✨ Key Features  
+
+### 🎨 **Create Capsules**  
+- Customize titles, themes, and colors.  
+- Add text, images, audio, videos, or links.  
+- Set a future opening date (private or shared).  
+
+### 📦 **Capsule Archive**  
+- Organize capsules by status: *Pending* or *Opened*.  
+- Personal dashboard for easy access.  
+
+### 👥 **Group Capsules**  
+- Collaborate with friends/family on shared capsules (e.g., weddings, graduations).  
+
+### 🌍 **Public Capsules**  
+- Explore community-created capsules for global events or historical milestones.  
+
+### 🔒 **Security & Privacy**  
+- End-to-end encryption until opening date.  
+- Cloud backups (future update).  
+
+---
+
+## 🚀 How It Works  
+
+1. **Sign Up** → Register via email (social login coming soon!).  
+2. **Create** → Build your capsule with multimedia content.  
+3. **Share** → Invite others or keep it private.  
+4. **Wait** → Track the countdown to your capsule’s unveiling.  
+5. **Open** → Relive memories with a celebratory experience.  
+
+---
+
+## 💡 Inspiration & Use Cases  
+
+📜 **Letters to Your Future Self**  
+🎉 **Group Time Capsules** (e.g., "Open on our 10th anniversary!")  
+👶 **Messages for Your Children**  
+🎯 **Goal Tracking** (e.g., "2025 Career Goals")  
+💌 **Posthumous Letters** (Legacy messages)  
+
+---
+
+## 🔧 Tech Stack  
+
+| **Frontend**  | React.js  |  
+| **Backend**   | Spring    |  
+| **Database**  | PostgreSQL|  
+| **Security**  | Spring Security |  
+| **Storage**   | AWS S3 / Google Cloud (planned) |  
+
+---
+
+## 📌 Roadmap (Upcoming)  
+
+✅ **Automatic Reminders** (Pre-opening notifications)  
+✅ **Gamification** (Badges, rewards, and challenges)  
+✅ **Social Media Login** (Google/Facebook integration)  
+✅ **Celebratory UI** (Special animations for capsule openings)  
+
+---
+
+## 💰 Monetization  
+
+- **Free Tier**: Limited capsules/month.  
+- **Premium Plan** (Coming soon!): Unlimited capsules + advanced features.  
+- **Partnerships**: Collaborate with brands for themed capsules.  
+
+---
+
+## 🌟 Why Time Capsule Online?  
+
+In a world of instant gratification, we champion **patience, reflection, and meaningful connections**. This isn’t just an app—it’s a bridge between your past, present, and future.  
+
+---
+
+📌 **Note**: Actively developed! Contributions welcome.  
+🔗 **Demo/Live Preview**: *[Coming Soon!]*  
+
