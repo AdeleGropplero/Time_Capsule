@@ -130,11 +130,11 @@ button.searchBtn:hover {
   border-color: #e0dfdf;
 }
 
-.results {
-  background-color: #fff;
-  margin-top: -20px;
-  padding-block: 20px;
+.result:hover {
+  box-shadow: 0px 1px 3px rgba(40, 72, 94, 0.422);
+  cursor: pointer;
 }
+
 /* ------------------------------------------------🟪🟪🟪----------------------------------------- */
 
 /* EVENTI IN EVIDENZA------------------------------🟨🟨🟨----------------------------------------- */
@@ -543,7 +543,7 @@ label[for="custom-switch"] {
   padding-block: 5px;
 }
 
-/* Gestisci larghezze per dispositivi diversi */
+/* larghezze per dispositivi diversi */
 @media (max-width: 1200px) {
   .container-home {
     max-width: 1000px; /* Larghezza massima per schermi medi */
@@ -605,6 +605,71 @@ label[for="custom-switch"] {
 
 .white {
   filter: invert(1);
+}
+
+.caroselloCapsula {
+  height: 500px;
+}
+
+.caroselloCapsula img {
+  max-height: 500px;
+  object-fit: contain;
+}
+
+@media (max-width: 576px) {
+  .caroselloCapsula {
+    max-height: 400px;
+  }
+
+  .caroselloCapsula img {
+    max-height: 400px;
+    object-fit: contain;
+  }
+}
+
+@media (max-width: 1920px) {
+  .messaggio {
+    margin-inline: 100px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #6c9bbd29;
+  }
+}
+
+@media (max-width: 1200px) {
+  .messaggio {
+    margin-inline: 70px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #6c9bbd29;
+  }
+}
+
+@media (max-width: 992px) {
+  .messaggio {
+    margin-inline: 50px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #6c9bbd29;
+  }
+}
+
+@media (max-width: 768px) {
+  .messaggio {
+    margin-inline: 40px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: #6c9bbd29;
+  }
+}
+
+@media (max-width: 576px) {
+  .messaggio {
+    margin-inline: 0px;
+    font-size: 1rem;
+    border-radius: 10px;
+    background-color: #6c9bbd29;
+  }
 }
 
 /* ------------------------------------------------🟧🟧🟧------------------------------------------- */

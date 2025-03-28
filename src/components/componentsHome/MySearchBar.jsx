@@ -4,10 +4,12 @@ import InputGroup from "react-bootstrap/InputGroup";
 import { Col, Container, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import api from "../../api/api"; // Importa Axios configurato
+import { useNavigate } from "react-router-dom";
 
 function MySearchBar() {
   const [searchQuery, setSearchQuery] = useState("");
   const [results, setResults] = useState([]);
+  const navigate = useNavigate();
 
   const handleSearch = () => {
     console.log("Ricerca per: " + searchQuery);
@@ -63,7 +65,10 @@ function MySearchBar() {
               <ul className="search-results-list list-unstyled">
                 {results.map((capsula) => (
                   <li key={capsula.id} className="search-result-item">
-                    <div className="d-flex align-items-center p-2">
+                    <div
+                      className="d-flex align-items-center p-2 result"
+                      onClick={() => navigate(`/capsula/${capsula.id}`)}
+                    >
                       <img
                         src="/iconeGenerali/capsula-icon-search.svg"
                         alt="icona capsula"

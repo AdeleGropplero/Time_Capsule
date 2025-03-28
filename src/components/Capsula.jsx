@@ -41,12 +41,17 @@ function Capsula() {
 
   const [emailInput, setEmailInput] = useState("");
 
+  // VERIFICA PER LA VISUALIZZAZIONE, SE LA CAP è PUBBLICA E UN UTENTE ESTERNO LA VEDE
+  // NON DEVE AVERE LA POSSIBILITà DI MODIFICARLA O CANCELLARLA.
+  const [isOwner, setIsOwner] = useState(false);
+  const currentUser = JSON.parse(localStorage.getItem("user"));
+
   useEffect(() => {
     api
       .get(`/capsula/${id}`)
       .then((res) => {
         if (res.status === 200) {
-          console.log(res.data);
+          /*  console.log(res.data); */
           setCapsula(res.data);
 
           setFormData((prev) => ({
@@ -62,6 +67,14 @@ function Capsula() {
       )
       .finally(() => setLoading(false));
   }, [id]);
+
+  useEffect(() => {
+    if (capsula && currentUser) {
+      // Aggiungo controllo su capsula
+      const isOwner = capsula.utentiIds.includes(currentUser.id);
+      setIsOwner(isOwner);
+    }
+  }, [capsula, currentUser]);
 
   if (loading) {
     return (
@@ -255,28 +268,53 @@ function Capsula() {
             >
               <img src="/iconeGenerali/arrowL.svg" alt="torna indietro" />
             </Button>
+            {isOwner && (
+              <>
+                {/* Bottone mostra partecipanti*/}
+                {capsula.invitati.length > 1 && (
+                  <Button className="bottone-crea upped" onClick={handleShow}>
+                    <img
+                      className="white"
+                      src="/iconeGenerali/gruppo.svg"
+                      alt="torna indietro"
+                    />
+                  </Button>
+                )}
 
-            {/* Bottone mostra partecipanti*/}
-            {capsula.invitati.length > 1 && (
-              <Button className="bottone-crea upped" onClick={handleShow}>
-                <img
-                  className="white"
-                  src="/iconeGenerali/gruppo.svg"
-                  alt="torna indietro"
-                />
-              </Button>
+                {/* Bottone per eliminare la capsula */}
+                <Button className="bottone-crea upped" onClick={handleDelete}>
+                  <img src="/iconeGenerali/trash.svg" alt="cestino" />
+                </Button>
+              </>
             )}
-
-            {/* Bottone per eliminare la capsula */}
-            <Button className="bottone-crea upped" onClick={handleDelete}>
-              <img src="/iconeGenerali/trash.svg" alt="cestino" />
-            </Button>
           </div>
           <Card.Body className="titolo-su-cap">
             <Card.Title className="text-center">{capsula.title}</Card.Title>
-            <Card.Text className="text-center">
-              <strong>Data di apertura:</strong> {capsula.openDate}
-            </Card.Text>
+            {capsulaAperta ? (
+              <Card.Text className="text-center  mb-1">
+                <strong>Aperta il:</strong> {capsula.openDate}
+              </Card.Text>
+            ) : (
+              <Card.Text className="text-center">
+                <strong>Si apre il:</strong> {capsula.openDate}
+              </Card.Text>
+            )}
+
+            {capsula.pubblica ? (
+              <Card.Text className="text-center  mb-1">
+                <small>
+                  {" "}
+                  Pubblica <i class="bi bi-unlock  mb-1"></i>
+                </small>
+              </Card.Text>
+            ) : (
+              <Card.Text className="text-center">
+                <small>
+                  {" "}
+                  Privata <i class="bi bi-lock"></i>
+                </small>
+              </Card.Text>
+            )}
 
             <Modal show={show} onHide={handleClose}>
               <Modal.Header closeButton>
@@ -304,21 +342,16 @@ function Capsula() {
                 <Card.Text className="text-center">
                   <strong>Messaggio:</strong>
                 </Card.Text>
-                <Card.Text className="mx-4">
+                <Card.Text className="messaggio">
                   {capsula.message || "Nessun messaggio presente."}
                 </Card.Text>
                 {capsula.media && capsula.media.length > 0 && (
                   <>
-                    <div className="d-flex justify-content-between mt-4 mb-5">
+                    <div className=" mt-4 mb-5 text-center">
                       <h5 className="">Media</h5>
                     </div>
 
-                    <Carousel
-                      className="mb-4"
-                      style={{
-                        height: "500px"
-                      }}
-                    >
+                    <Carousel className="mb-4 caroselloCapsula">
                       {capsula.media.map((file, index) => (
                         <Carousel.Item key={index}>
                           {file.url.match(/\.(mp4|webm|mov)$/) ? (
@@ -337,10 +370,6 @@ function Capsula() {
                                 src={file.url}
                                 alt={`Media ${index + 1}`}
                                 className="img-fluid rounded shadow"
-                                style={{
-                                  maxHeight: "500px",
-                                  objectFit: "contain"
-                                }}
                               />
                             </div>
                           )}
@@ -353,8 +382,8 @@ function Capsula() {
                 {/* FILE DI TESTO */}
                 {capsula.textFiles && capsula.textFiles.length > 0 ? (
                   <>
-                    <h5 className="mt-4">File di Testo</h5>
-                    <ul>
+                    <h5 className="mt-4 ms-5">File di Testo</h5>
+                    <ul className="ms-5">
                       {capsula.textFiles.map((file, index) => {
                         const fileName = file.url.split("/").pop(); // Ottiene il nome completo del file
                         return (
@@ -381,18 +410,26 @@ function Capsula() {
               // Se la capsula non è ancora apribile, permetti la modifica
               //----------------------------------------------------------------
               <>
-                <p className="text-center text-danger">
-                  🔒 La capsula non può ancora essere aperta. <br />
-                  Se vuoi aggiungi ricordi!.
+                <p className="text-center text-danger mb-1">
+                  🔒 La capsula non può ancora essere aperta.{" "}
                 </p>
-                <div className="d-flex justify-content-center mt-4">
-                  <Button
-                    className="bottone-crea"
-                    onClick={() => setEditMode(!editMode)}
-                  >
-                    {editMode ? "Annulla Modifica" : "Modifica Capsula"}
-                  </Button>
-                </div>
+                {isOwner && (
+                  <>
+                    <p className="text-center text-success">
+                      {" "}
+                      Se vuoi aggiungi ricordi!.
+                    </p>
+
+                    <div className="d-flex justify-content-center mt-4">
+                      <Button
+                        className="bottone-crea"
+                        onClick={() => setEditMode(!editMode)}
+                      >
+                        {editMode ? "Annulla Modifica" : "Modifica Capsula"}
+                      </Button>
+                    </div>
+                  </>
+                )}
                 {editMode && (
                   <>
                     <Form className="mt-4" onSubmit={handleSaveChanges}>
