@@ -1,5 +1,5 @@
 # Time Capsule Online
-💙(Link al back --> https://github.com/AdeleGropplero/TimeCapsule-Back-)💙
+💙 **[Backend Repository](https://github.com/AdeleGropplero/TimeCapsule-Back-)** 💙  
 
 Time Capsule Online è un'app innovativa che ti permette di creare e conservare capsule del tempo virtuali da aprire in una data futura. Salva ricordi, messaggi, foto, video e pensieri che saranno visibili solo al momento stabilito. Perfetta per celebrare anniversari, condividere emozioni con il tuo futuro io o lasciare messaggi importanti ai tuoi cari.
 
